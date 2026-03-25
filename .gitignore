@@ -1,0 +1,5 @@
+en.subject.cube3d.pdf
+*.swp
+*.obj
+objs/
+cube3d
