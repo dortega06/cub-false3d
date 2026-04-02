@@ -1,29 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   clean_data_cube.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcuenca- <mcuenca-@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/23 17:16:05 by mcuenca-          #+#    #+#             */
-/*   Updated: 2026/04/02 19:07:06 by mcuenca-         ###   ########.fr       */
+/*   Created: 2026/04/02 19:01:39 by mcuenca-          #+#    #+#             */
+/*   Updated: 2026/04/02 19:06:32 by mcuenca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include "libftprintf.h"
 #include "cube3d.h"
 
-int	main(int argc, char **argv)
+void	clean_data_cube(t_cube *root_nd)
 {
-	t_cube	root_nd;
-
-	if (argc != 2)
-		return (ft_printf("Expected 1 argument.\n"), 0);
-	root_nd.fd = -1;
-	root_nd.file = NULL;
-	if (!parse_cub(argv[1], &root_nd))
-		return (1);
-	clean_data_cube(&root_nd);
-	return (0);
+	if (root_nd->file)
+		ft_free_2ptr(root_nd->file);
 }

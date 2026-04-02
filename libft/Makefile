@@ -6,7 +6,7 @@
 #    By: mcuenca- <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/26 12:46:32 by mcuenca-          #+#    #+#              #
-#    Updated: 2026/03/21 15:04:27 by mcuenca-         ###   ########.fr        #
+#    Updated: 2026/04/02 19:14:57 by mcuenca-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror -I. -g
 SRCS = ft_isalnum.c ft_isalpha.c ft_isascii.c ft_isdigit.c ft_isprint.c ft_tolower.c ft_toupper.c ft_isspace.c\
 	   \
-	   ft_bzero.c ft_calloc.c ft_memchr.c ft_memcmp.c ft_memcpy.c ft_memmove.c ft_memset.c ft_free.c\
+	   ft_bzero.c ft_calloc.c ft_memchr.c ft_memcmp.c ft_memcpy.c ft_memmove.c ft_memset.c ft_free.c ft_realloc.c\
 	   \
 	   ft_atoi.c ft_split.c ft_strchr.c ft_strcmp.c ft_strdup.c ft_striteri.c \
 	   ft_strjoin.c ft_strlcat.c ft_strlcpy.c ft_strlen.c ft_strmapi.c ft_strncmp.c \
@@ -30,10 +30,10 @@ SRCS = ft_isalnum.c ft_isalpha.c ft_isascii.c ft_isdigit.c ft_isprint.c ft_tolow
 	   \
 	   ft_printf.c print_c.c print_s.c print_p.c print_d.c print_u.c print_x.c \
 	   \
-	   get_next_line.c get_next_line_bonus.c
-DIR_OBJ = obj
+	   gnl.c gnl_utils.c read_gnl_content.c
+DIR_OBJ = objs
 OBJS = $(addprefix $(DIR_OBJ)/, $(notdir $(SRCS:.c=.o))) #$(SRCS:.c=.o)
-HEADER = libft.h libftprintf.h get_next_line.h get_next_line_bonus.h
+HEADER = libft.h libftprintf.h gnl.h 
 NAME = libft.a
 
 all: $(NAME)

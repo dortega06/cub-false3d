@@ -6,7 +6,7 @@
 /*   By: mcuenca- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 12:20:17 by mcuenca-          #+#    #+#             */
-/*   Updated: 2024/11/07 15:00:48 by mcuenca-         ###   ########.fr       */
+/*   Updated: 2026/04/02 10:28:13 by mcuenca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,9 @@ size_t	ft_strlen(const char *s)
 	size_t	index;
 
 	index = 0;
-	while (s[index] != '\0')
+	if (!s)
+		return (0);
+	while (s && s[index] != '\0')
 	{
 		index++;
 	}

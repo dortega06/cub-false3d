@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_count.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mcuenca- <mcuenca-@student.42barcelon      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/04/01 10:39:29 by mcuenca-          #+#    #+#             */
+/*   Updated: 2026/04/01 10:39:32 by mcuenca-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 int	ft_countnumhexa(long long int n)
 {
 	int	i;
@@ -42,6 +54,8 @@ int	ft_countwords(const char *s, char c)
 	i = 0;
 	count = 0;
 	word = 1;
+	if (!s)
+		return (0);
 	while (s[i])
 	{
 		if (s[i] != c && word)

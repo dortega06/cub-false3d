@@ -6,7 +6,7 @@
 #    By: mcuenca- <mcuenca-@student.42barcelon      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/03/23 16:46:01 by mcuenca-          #+#    #+#              #
-#    Updated: 2026/03/25 18:52:28 by mcuenca-         ###   ########.fr        #
+#    Updated: 2026/04/02 19:04:01 by mcuenca-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,10 +19,15 @@ MLX_DIR= minilibx-linux
 MLX= minilibx-linux/libmlx.a
 LIBS= $(LIBFT) $(MLX) -lXext -lX11 -lm
 
-HEAD= 
+HEAD= includes/cube3d.h
 
 SRCS_DIR= srcs
-SRCS= srcs/main.c
+SRCS= srcs/main.c \
+	  srcs/parse.c \
+	  srcs/extension.c \
+	  srcs/check_cub_extension.c \
+	  srcs/clean_data_cube.c
+
 
 OBJS_DIR= objs
 OBJS= $(SRCS:$(SRCS_DIR)/%.c=$(OBJS_DIR)/%.o)

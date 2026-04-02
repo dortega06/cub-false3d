@@ -6,9 +6,11 @@
 /*   By: mcuenca- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 17:59:50 by mcuenca-          #+#    #+#             */
-/*   Updated: 2026/03/21 14:57:40 by mcuenca-         ###   ########.fr       */
+/*   Updated: 2026/04/01 14:41:28 by mcuenca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include <stdlib.h>
 
 char	*ft_strchr(const char *s, int c)
 {

@@ -6,7 +6,7 @@
 /*   By: mcuenca- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 20:17:55 by mcuenca-          #+#    #+#             */
-/*   Updated: 2026/03/21 14:54:23 by mcuenca-         ###   ########.fr       */
+/*   Updated: 2026/03/31 17:08:32 by mcuenca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ char	**ft_split(char const *s, char c)
 			i++;
 		newarray[t] = ft_substr(s, j, i - j);
 		if (!newarray[t])
-			return (ft_free_2parray(newarray), NULL);
+			return (ft_free_2ptr(newarray), NULL);
 		t++;
 	}
 	newarray[t] = NULL;
