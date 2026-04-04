@@ -6,7 +6,7 @@
 /*   By: mcuenca- <mcuenca-@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/28 19:31:41 by mcuenca-          #+#    #+#             */
-/*   Updated: 2026/04/02 19:12:08 by mcuenca-         ###   ########.fr       */
+/*   Updated: 2026/04/04 21:17:46 by mcuenca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,15 @@ int	file_name_len(char *file)
 	int		len;
 	char	*slash;
 
-	slash = ft_strrchr(file, '/') + 1;
+	slash = ft_strrchr(file, '/');
+	if (slash)
+		slash += 1;
+	else
+		slash = file;
 	len = ft_strlen(slash);
 	return (len);
 }
+
 t_bool	extension(char *file, char *flag, t_cube *root_nd)
 {
 	int		file_len;
@@ -36,10 +41,10 @@ t_bool	extension(char *file, char *flag, t_cube *root_nd)
 	{
 		if (ft_strcmp(flag, "cub") == 0)
 			is_valid = check_cub_extension(file, root_nd);
-		/*else if (ft_strcmp(flag, "xpm"))
-			check_xpm(file, root_nd);*/
+		else if (ft_strcmp(flag, "xpm") == 0)
+			is_valid = check_xpm_extension(file, root_nd);
 		if (!is_valid)
-			return (clean_data_cube(root_nd), FALSE);
+			return (FALSE);
 	}
 	return (TRUE);
 }

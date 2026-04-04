@@ -6,7 +6,7 @@
 /*   By: mcuenca- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 17:58:46 by mcuenca-          #+#    #+#             */
-/*   Updated: 2024/12/16 16:00:51 by mcuenca-         ###   ########.fr       */
+/*   Updated: 2026/04/04 14:57:53 by mcuenca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ t_list	*ft_lstcopy(t_list *original)
 	contentdup = NULL;
 	while (tmp)
 	{
-		if (ft_str_is((char *)tmp->content) < 5)
+		if (ft_str_what_is((char *)tmp->content) < 5)
 			contentdup = (char *)ft_strdup((char *)tmp->content);
 		else
 			contentdup = (int *)ft_intdup(*(int *)tmp->content);

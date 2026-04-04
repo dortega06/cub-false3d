@@ -1,22 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   clean_data_cube.c                                  :+:      :+:    :+:   */
+/*   content_is_valid.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcuenca- <mcuenca-@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/02 19:01:39 by mcuenca-          #+#    #+#             */
-/*   Updated: 2026/04/04 20:17:19 by mcuenca-         ###   ########.fr       */
+/*   Created: 2026/04/04 15:15:00 by mcuenca-          #+#    #+#             */
+/*   Updated: 2026/04/04 18:35:01 by mcuenca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
-#include "libftprintf.h"
 
-void	clean_data_cube(t_cube *root_nd)
+t_bool	content_is_valid(t_cube *root_nd)
 {
-	if (root_nd->file)
-		ft_free_2ptr(root_nd->file);
-	if (root_nd->fd != -1)
-		close(root_nd->fd);
+	if (!textures_are_valid(root_nd))
+		return (FALSE);
+	return (TRUE);
 }

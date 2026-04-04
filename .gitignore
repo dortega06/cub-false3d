@@ -1,5 +1,9 @@
 en.subject.cube3d.pdf
+*.hgc
 *.swp
 *.obj
 objs/
 cube3d
+test/
+*.a
+libft/libft.a

@@ -6,7 +6,7 @@
 /*   By: mcuenca- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 11:56:08 by mcuenca-          #+#    #+#             */
-/*   Updated: 2026/03/23 18:29:48 by mcuenca-         ###   ########.fr       */
+/*   Updated: 2026/04/04 19:53:58 by mcuenca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,14 @@ int	ft_str_isdigit(const char *str)
 	int	i;
 
 	i = 0;
-	ft_isspace(str, &i);
+	ft_jump_space(str, &i);
 	if (str[i] == '-' || str[i] == '+')
 		i++;
 	while (str[i] != '\0')
 	{
 		if (!(ft_isdigit(str[i])))
 		{
-			ft_isspace(str, &i);
+			ft_jump_space(str, &i);
 			if (str[i])
 				return (0);
 			else

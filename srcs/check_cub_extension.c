@@ -6,7 +6,7 @@
 /*   By: mcuenca- <mcuenca-@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/31 16:49:01 by mcuenca-          #+#    #+#             */
-/*   Updated: 2026/04/02 19:12:33 by mcuenca-         ###   ########.fr       */
+/*   Updated: 2026/04/04 21:24:49 by mcuenca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,27 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdio.h>
+
+t_bool	read_sample(char **content, int sample)
+{
+	int	j;
+
+	if (!content || (content && !*content))
+		return (FALSE);
+	j = 0;
+	if (sample == FULL)
+	{
+		if (!ft_str_2ptr_isprint((const char **)content))
+			return (FALSE);
+	}
+	else
+	{
+		while (content[j] && j < sample)
+			if (!ft_str_isprint((const char *)content[j]))
+				return (FALSE);
+	}
+	return (TRUE);
+}
 
 char	*loop_concat(char **one_line, char *tmp)
 {
@@ -55,37 +76,6 @@ static char	*loop(int fd)
 	return (one_line);
 }
 
-/*static char	*loop(int fd)
-{
-	int		return_val;
-	int		one_line_len;
-	int		tmp_len;
-	char	*one_line;
-	char	*tmp;
-
-	one_line = ft_calloc(1, 1);
-	if (!one_line)
-		return (NULL);
-	tmp = "";
-	while (tmp)//while (one_line)
-	{
-		return_val = gnl(fd, &tmp);
-		if (return_val == MALLOC)
-			return (ft_free(one_line), NULL);
-		else if (return_val == ENDOF)
-			return (printf("patata\n"), one_line);
-		one_line_len = ft_strlen(one_line);
-		tmp_len = ft_strlen(tmp);
-		one_line = ft_realloc(one_line, one_line_len + tmp_len + 1);
-		if (!one_line)
-			return (ft_free(one_line), ft_free(tmp), NULL);
-		one_line[one_line_len] = '\0';
-		ft_strlcat(one_line, tmp, one_line_len + tmp_len + 1);
-		ft_free(tmp);
-	}
-	return (one_line);
-}*/
-
 char	**read_content(int fd)
 {
 	char	*tmp;
@@ -115,10 +105,8 @@ t_bool	check_cub_extension(char *file, t_cube *root_nd)
 	content = read_content(root_nd->fd);
 	if (!content)
 		return (FALSE);
+	if (!read_sample(content, FULL))
+		return (ft_free_2ptr(content), FALSE);
 	root_nd->file = content;
 	return (TRUE);
 }
-/*hacer gnl
- * guarda el contenido ojo a los leaks y punteros
- * liberar si falla
- * comproba en un muestra que todo son chars printeables*/

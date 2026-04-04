@@ -6,7 +6,7 @@
 /*   By: mcuenca- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 12:11:00 by mcuenca-          #+#    #+#             */
-/*   Updated: 2024/12/16 12:55:33 by mcuenca-         ###   ########.fr       */
+/*   Updated: 2026/04/04 14:57:59 by mcuenca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	ft_str_isascii(const char *str)
 	return (1);
 }
 
-int	ft_str_is(const	char *str)
+int	ft_str_what_is(const	char *str)
 {
 	if (ft_str_isdigit(str))
 		return (1);

@@ -6,7 +6,7 @@
 #    By: mcuenca- <mcuenca-@student.42barcelon      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/03/23 16:46:01 by mcuenca-          #+#    #+#              #
-#    Updated: 2026/04/02 19:04:01 by mcuenca-         ###   ########.fr        #
+#    Updated: 2026/04/04 20:39:38 by mcuenca-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,8 +26,10 @@ SRCS= srcs/main.c \
 	  srcs/parse.c \
 	  srcs/extension.c \
 	  srcs/check_cub_extension.c \
-	  srcs/clean_data_cube.c
-
+	  srcs/check_xpm_extension.c \
+	  srcs/clean_data_cube.c \
+	  srcs/content_is_valid.c \
+	  srcs/textures_are_valid.c
 
 OBJS_DIR= objs
 OBJS= $(SRCS:$(SRCS_DIR)/%.c=$(OBJS_DIR)/%.o)

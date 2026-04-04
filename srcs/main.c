@@ -6,7 +6,7 @@
 /*   By: mcuenca- <mcuenca-@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/23 17:16:05 by mcuenca-          #+#    #+#             */
-/*   Updated: 2026/04/02 19:07:06 by mcuenca-         ###   ########.fr       */
+/*   Updated: 2026/04/04 20:16:52 by mcuenca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	main(int argc, char **argv)
 	root_nd.fd = -1;
 	root_nd.file = NULL;
 	if (!parse_cub(argv[1], &root_nd))
-		return (1);
+		return (clean_data_cube(&root_nd), 1);
 	clean_data_cube(&root_nd);
 	return (0);
 }

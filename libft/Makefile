@@ -6,7 +6,7 @@
 #    By: mcuenca- <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/26 12:46:32 by mcuenca-          #+#    #+#              #
-#    Updated: 2026/04/02 19:14:57 by mcuenca-         ###   ########.fr        #
+#    Updated: 2026/04/04 21:35:53 by mcuenca-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ SRCS = ft_isalnum.c ft_isalpha.c ft_isascii.c ft_isdigit.c ft_isprint.c ft_tolow
 	   \
 	   ft_printf.c print_c.c print_s.c print_p.c print_d.c print_u.c print_x.c \
 	   \
-	   gnl.c gnl_utils.c read_gnl_content.c
+	   gnl.c gnl_utils.c read_2ptr.c
 DIR_OBJ = objs
 OBJS = $(addprefix $(DIR_OBJ)/, $(notdir $(SRCS:.c=.o))) #$(SRCS:.c=.o)
 HEADER = libft.h libftprintf.h gnl.h 

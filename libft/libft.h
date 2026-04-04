@@ -6,7 +6,7 @@
 /*   By: mcuenca- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 12:46:49 by mcuenca-          #+#    #+#             */
-/*   Updated: 2026/04/02 13:12:54 by mcuenca-         ###   ########.fr       */
+/*   Updated: 2026/04/04 19:53:09 by mcuenca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,15 @@ int		ft_isdigit(int c);
 int		ft_isalnum(int c);
 int		ft_isascii(int c);
 int		ft_isprint(int c);
-void	ft_isspace(const char *str, int *i);
+//void	ft_isspace(const char *str, int *i);
+void	ft_jump_space(const char *str, int *i);
 int		ft_str_isalpha(const char *str);
 int		ft_str_isdigit(const char *str);
 int		ft_str_isalnum(const char *str);
 int		ft_str_isprint(const char *str);
 int		ft_str_isascii(const char *str);
-int		ft_str_is(const char *str);
+int		ft_str_2ptr_isprint(const char **str_2ptr);
+int		ft_str_what_is(const char *str);
 size_t	ft_strlen(const char *c);
 void	*ft_memset(void *s, int c, size_t n);
 void	ft_bzero(void *s, size_t n);
