@@ -6,7 +6,7 @@
 /*   By: mcuenca- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 17:59:50 by mcuenca-          #+#    #+#             */
-/*   Updated: 2026/04/01 14:41:28 by mcuenca-         ###   ########.fr       */
+/*   Updated: 2026/04/08 10:47:24 by mcuenca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ char	*ft_strchr(const char *s, int c)
 	return (NULL);
 }*/
 
-int	count_c_char(const char *s, int c)
+int	ft_count_c_char(const char *s, int c)
 {
 	int		i;
 	char	*new_s;

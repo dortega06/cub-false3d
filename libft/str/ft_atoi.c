@@ -6,7 +6,7 @@
 /*   By: mcuenca- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:42:12 by mcuenca-          #+#    #+#             */
-/*   Updated: 2026/03/21 13:52:37 by mcuenca-         ###   ########.fr       */
+/*   Updated: 2026/04/08 14:22:22 by mcuenca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
@@ -40,7 +40,7 @@ int	is_overflow(char *str)
 	return (0);
 }
 
-int	ft_atoi(const char *nptr)
+int	ft_full_str_atoi(const char *nptr)
 {
 	int			i;
 	long int	num;
@@ -50,7 +50,7 @@ int	ft_atoi(const char *nptr)
 	num = 0;
 	mul = 1;
 	if (!nptr || !ft_str_isdigit(nptr))
-		exit (EXIT_FAILURE);
+		return (0);
 	while (nptr[i] == 32 || (nptr[i] >= 9 && nptr[i] <= 13))
 		nptr++;
 	if (nptr[i] == '-' || nptr[i] == '+')
@@ -63,12 +63,12 @@ int	ft_atoi(const char *nptr)
 	{
 		num = nptr[i++] - '0' + num * 10;
 		if ((num * mul) < -2147483648 || (num * mul) > 2147483647)
-			exit (EXIT_FAILURE);
+			return (0);
 	}
 	return (mul * num);
 }
 
-/*int	ft_atoi(const char *nptr)
+int	ft_atoi(const char *nptr)
 {
 	int	index;
 	int	num;
@@ -91,4 +91,4 @@ int	ft_atoi(const char *nptr)
 		index++;
 	}
 	return (mul * num);
-}*/
+}

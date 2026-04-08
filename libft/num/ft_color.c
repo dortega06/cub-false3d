@@ -1,27 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   read_gnl_content.c                                 :+:      :+:    :+:   */
+/*   ft_color.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcuenca- <mcuenca-@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/31 17:53:46 by mcuenca-          #+#    #+#             */
-/*   Updated: 2026/04/01 11:02:12 by mcuenca-         ###   ########.fr       */
+/*   Created: 2025/02/20 14:48:38 by mcuenca-          #+#    #+#             */
+/*   Updated: 2026/04/08 18:32:48 by mcuenca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libftprintf.h"
-
-void	read_gnl_content(char **content)
+int	ft_get_r(int rgba)
 {
-	int	i;
+	return ((rgba >> 24) & 0xFF);
+}
 
-	i = 0;
-	if (!content)
-		return ;
-	while (content[i])
-	{
-		ft_printf("%s\n", content[i]);
-		i++;
-	}
+int	ft_get_g(int rgba)
+{
+	return ((rgba >> 16) & 0xFF);
+}
+
+int	ft_get_b(int rgba)
+{
+	return ((rgba >> 8) & 0xFF);
+}
+
+int	ft_get_a(int rgba)
+{
+	return (rgba & 0xFF);
+}
+
+int	ft_get_rgba(int r, int g, int b, int a)
+{
+	return (r << 24 | g << 16 | b << 8 | a);
 }

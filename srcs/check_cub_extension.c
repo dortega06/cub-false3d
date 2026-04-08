@@ -6,12 +6,13 @@
 /*   By: mcuenca- <mcuenca-@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/31 16:49:01 by mcuenca-          #+#    #+#             */
-/*   Updated: 2026/04/04 21:24:49 by mcuenca-         ###   ########.fr       */
+/*   Updated: 2026/04/08 13:25:34 by mcuenca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "libftprintf.h"
+#include "gnl.h"
 #include "cube3d.h"
 #include <unistd.h>
 #include <stdlib.h>
@@ -19,21 +20,22 @@
 
 t_bool	read_sample(char **content, int sample)
 {
+	int	i;
 	int	j;
 
-	if (!content || (content && !*content))
+	if (!content || (content && !*content) || sample < 0)
 		return (FALSE);
 	j = 0;
-	if (sample == FULL)
+	while (content[j] && j < sample)
 	{
-		if (!ft_str_2ptr_isprint((const char **)content))
-			return (FALSE);
-	}
-	else
-	{
-		while (content[j] && j < sample)
-			if (!ft_str_isprint((const char *)content[j]))
+		i = 0;
+		while (content[j][i])
+		{
+			if (!ft_isprint(content[j][i]) && !ft_isspace(content[j][i]))
 				return (FALSE);
+			i++;
+		}
+		j++;
 	}
 	return (TRUE);
 }
@@ -84,7 +86,7 @@ char	**read_content(int fd)
 	tmp = loop(fd);
 	if (!tmp)
 		return (NULL);
-	content = ft_split(tmp, '\n');
+	content = split_gnl_cube(tmp, '\n');
 	if (!content)
 		return (ft_free(tmp), NULL);
 	ft_free(tmp);
@@ -105,7 +107,7 @@ t_bool	check_cub_extension(char *file, t_cube *root_nd)
 	content = read_content(root_nd->fd);
 	if (!content)
 		return (FALSE);
-	if (!read_sample(content, FULL))
+	if (!read_sample(content, 8))
 		return (ft_free_2ptr(content), FALSE);
 	root_nd->file = content;
 	return (TRUE);

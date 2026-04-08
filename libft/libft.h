@@ -6,7 +6,7 @@
 /*   By: mcuenca- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 12:46:49 by mcuenca-          #+#    #+#             */
-/*   Updated: 2026/04/04 19:53:09 by mcuenca-         ###   ########.fr       */
+/*   Updated: 2026/04/08 18:33:05 by mcuenca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,14 @@ int		ft_isdigit(int c);
 int		ft_isalnum(int c);
 int		ft_isascii(int c);
 int		ft_isprint(int c);
-//void	ft_isspace(const char *str, int *i);
-void	ft_jump_space(const char *str, int *i);
+int		ft_isspace(int c);
 int		ft_str_isalpha(const char *str);
 int		ft_str_isdigit(const char *str);
 int		ft_str_isalnum(const char *str);
 int		ft_str_isprint(const char *str);
 int		ft_str_isascii(const char *str);
 int		ft_str_2ptr_isprint(const char **str_2ptr);
+void	ft_jump_space(const char *str, int *i);
 int		ft_str_what_is(const char *str);
 size_t	ft_strlen(const char *c);
 void	*ft_memset(void *s, int c, size_t n);
@@ -60,6 +60,7 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t size);
 size_t	ft_strlcat(char *dst, const char *src, size_t size);
 int		ft_toupper(int c);
 int		ft_tolower(int c);
+int		ft_count_c_char(const char *s, int c);
 char	*ft_strchr(const char *s, int c);
 char	*ft_strrchr(const char *s, int c);
 int		ft_strcmp(const char *s1, const char *s2);
@@ -68,6 +69,7 @@ void	*ft_memchr(const void *s, int c, size_t n);
 int		ft_memcmp(const void *s1, const void *s2, size_t n);
 char	*ft_strnstr(const char *big, const char *little, size_t len);
 int		ft_atoi(const char *nptr);
+int		ft_full_str_atoi(const char *nptr);
 void	*ft_calloc(size_t nmemb, size_t size);
 void	*ft_realloc(void *ptr, size_t size);
 char	*ft_strdup(const char *s);
@@ -82,6 +84,11 @@ int		ft_countnum(long int n);
 int		ft_countnumhexa(long long int n);
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 void	ft_striteri(char *s, void (*f)(unsigned int, char*));
+int		ft_get_r(int rgba);
+int		ft_get_g(int rgba);
+int		ft_get_b(int rgba);
+int		ft_get_a(int rgba);
+int		ft_get_rgba(int r, int g, int b, int a);
 void	ft_putchar_fd(char c, int fd);
 void	ft_putstr_fd(char *s, int fd);
 void	ft_putendl_fd(char *s, int fd);

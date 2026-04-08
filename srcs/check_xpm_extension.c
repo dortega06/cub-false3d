@@ -6,17 +6,58 @@
 /*   By: mcuenca- <mcuenca-@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/04 20:40:33 by mcuenca-          #+#    #+#             */
-/*   Updated: 2026/04/04 21:40:07 by mcuenca-         ###   ########.fr       */
+/*   Updated: 2026/04/05 18:02:45 by mcuenca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
 #include "libftprintf.h"
+#include <fcntl.h>
+
+t_bool	check_pattern(char *buf)
+{
+	int		i;
+	int		sample;
+	char	*tmp;
+
+	tmp = buf;
+	if (ft_strncmp(tmp, "/* XPM */", 9) != 0)
+		return (FALSE);
+	tmp = ft_strchr(buf, '\n') + 1;
+	if (ft_strncmp(tmp, "static char *", 13) != 0)
+		return (FALSE);
+	i = 0;
+	sample = 100;
+	tmp = ft_strchr(tmp, '\n') + 1;
+	while (i < sample)
+	{
+		if (!ft_isprint(tmp[i]) && !ft_isspace(tmp[i]))
+			return (FALSE);
+		i++;
+	}
+	return (TRUE);
+}
+
+int	check_inside(int fd)
+{
+	int		bytes;
+	char	buf[500 + 1];
+
+	bytes = read(fd, buf, 500);
+	if (bytes < 0)
+		return (ERR);
+	if (bytes == 0)
+		return (ENDOF);
+	buf[bytes] = '\0';
+	if (!check_pattern(buf))
+		return (ERR);
+	return (OK);
+}
 
 t_bool	check_xpm_extension(char *file, t_cube *root_nd)
 {
 	int	fd;
-	int		full_len;
+	int	full_len;
 
 	full_len = ft_strlen(file);
 	if (file[full_len - 4] != '.'
@@ -27,7 +68,8 @@ t_bool	check_xpm_extension(char *file, t_cube *root_nd)
 	fd = file_err(file, root_nd);
 	if (fd < 0)
 		return (FALSE);
-	//AQUI, leer el xpm? Porque si haces gnl_cube en la var static se te quedara media linea leida.
+	if (check_inside(fd) != OK)
+		return (FALSE);
 	close(fd);
 	return (TRUE);
 }

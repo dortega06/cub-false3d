@@ -6,7 +6,7 @@
 /*   By: mcuenca- <mcuenca-@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/04 18:34:12 by mcuenca-          #+#    #+#             */
-/*   Updated: 2026/04/04 21:39:04 by mcuenca-         ###   ########.fr       */
+/*   Updated: 2026/04/08 13:41:00 by mcuenca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_bool	xmp_loop_extension(char **texture_lines, t_cube *root_nd)
 	return (TRUE);
 }
 
-t_bool	check_nomen(char **texture_lines)
+static t_bool	check_nomen(char **texture_lines)
 {
 	if (ft_strncmp(texture_lines[0], "NO ", 3) != 0)
 		return (FALSE);
@@ -68,10 +68,11 @@ t_bool	textures_are_valid(t_cube *root_nd)
 	tmp = extract_texture_lines(root_nd);
 	if (!tmp)
 		return (FALSE);
-	else if (!check_nomen(tmp))
+	if (!check_nomen(tmp))
 		return (ft_free_2ptr(tmp), FALSE);
 	else if (!xmp_loop_extension(tmp, root_nd))
 		return (ft_free_2ptr(tmp), FALSE);
+	textures_to_image(root_nd, tmp);
 	ft_free_2ptr(tmp);
 	return (TRUE);
 }

@@ -1,29 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isspace.c                                       :+:      :+:    :+:   */
+/*   textures_to_images.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcuenca- <mcuenca-@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/21 15:04:02 by mcuenca-          #+#    #+#             */
-/*   Updated: 2026/04/05 17:59:48 by mcuenca-         ###   ########.fr       */
+/*   Created: 2026/04/05 18:06:42 by mcuenca-          #+#    #+#             */
+/*   Updated: 2026/04/08 19:11:20 by mcuenca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_isspace(int c)
-{
-	while (c && (c == ' '
-			|| c == '\t'
-			|| c == '\n'
-			|| c == '\v'
-			|| c == '\f'
-			|| c == '\r'))
-		return (1);
-	return (0);
-}
+#include "cube3d.h"
+#include "mlx.h"
+#include "mlx_int.h"
 
-void	ft_jump_space(const char *str, int *i)
+void	textures_to_image(t_cube *root_nd, char **textu_lines)
 {
-	while (str[*i] && (str[*i] == 32 || (str[*i] >= 9 && str[*i] <= 13)))
-		(*i)++;
+	int		j;
+	char	*tmp;
+
+	j = 0;
+	while (j < 4)
+	{
+		tmp = textu_lines[j] + 3;
+		root_nd->textu[j].image = mlx_xpm_file_to_image(root_nd->sys,
+				tmp,
+				&root_nd->textu[j].width,
+				&root_nd->textu[j].height);
+		j++;
+	}
 }

@@ -1,29 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isspace.c                                       :+:      :+:    :+:   */
+/*   map_is_valid.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcuenca- <mcuenca-@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/21 15:04:02 by mcuenca-          #+#    #+#             */
-/*   Updated: 2026/04/05 17:59:48 by mcuenca-         ###   ########.fr       */
+/*   Created: 2026/04/07 13:25:14 by mcuenca-          #+#    #+#             */
+/*   Updated: 2026/04/08 09:19:43 by mcuenca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_isspace(int c)
-{
-	while (c && (c == ' '
-			|| c == '\t'
-			|| c == '\n'
-			|| c == '\v'
-			|| c == '\f'
-			|| c == '\r'))
-		return (1);
-	return (0);
-}
+#include "cube3d.h"
 
-void	ft_jump_space(const char *str, int *i)
+t_bool	map_is_valid(t_cube *root_nd)
 {
-	while (str[*i] && (str[*i] == 32 || (str[*i] >= 9 && str[*i] <= 13)))
-		(*i)++;
+	(void)root_nd;//
+	return (TRUE);
 }
