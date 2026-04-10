@@ -6,7 +6,7 @@
 /*   By: mcuenca- <mcuenca-@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/28 14:22:28 by mcuenca-          #+#    #+#             */
-/*   Updated: 2026/04/08 18:31:48 by mcuenca-         ###   ########.fr       */
+/*   Updated: 2026/04/10 16:42:41 by mcuenca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,26 @@ typedef	enum e_floor_cealing
 	C
 }	t_floor_cealing;
 
+typedef	enum e_ff
+{
+	SPC = -1,
+	FLOOR = 0,
+	WALL = 1
+}	t_ff;
+
 typedef struct s_color
 {
 	int	r;
 	int	g;
 	int	b;
 }	t_color;
+
+typedef struct s_vex
+{
+	char	type;
+	int		x;
+	int		y;
+}	t_vex;
 
 typedef struct s_cube
 {
@@ -68,6 +82,7 @@ typedef struct s_cube
 	t_img		textu[4];
 	uint32_t	f;
 	uint32_t	c;
+	t_vex		rsp;
 }	t_cube;
 
 
@@ -81,8 +96,10 @@ t_bool	content_is_valid(t_cube *root_nd);
 t_bool	textures_are_valid(t_cube *root_nd);
 void	textures_to_image(t_cube *root_nd, char **textu_lines);
 t_bool	colors_are_valid(t_cube *root_nd);
-/*void	rbg_to_uint32(t_cube *root_nd, t_color *channels);*/
 t_bool	map_is_valid(t_cube *root_nd);
+t_vex	rsp(const char **map, t_vex *rsp);
+t_bool	only_one_rsp(char **map, t_vex *rsp);
+t_ff	floodfill(char **map, char rsp, int x, int y);
 void	clean_data_cube(t_cube *root_nd);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: mcuenca- <mcuenca-@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/07 13:37:16 by mcuenca-          #+#    #+#             */
-/*   Updated: 2026/04/08 19:11:47 by mcuenca-         ###   ########.fr       */
+/*   Updated: 2026/04/10 16:51:37 by mcuenca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,17 @@ static t_bool	check_nomem(char buf[2][15])
 
 t_bool	extract_colors_lines(t_cube *root_nd, char buf[2][15])
 {
-	if (root_nd->file[4][0] != '\n' || root_nd->file[7][0] != '\n')
-		return (FALSE);
+	int	j;
+
+	j = 4;
+	while (j < 8)
+	{
+		if (!root_nd->file[j]
+			|| ((root_nd->file[j] && root_nd->file[j][0] != '\n')
+			&& (j == 4 || j == 7)))
+			return (FALSE);
+		j++;
+	}
 	if (ft_strlcpy(buf[F], root_nd->file[5], 14) > 14)
 		return (FALSE);
 	if (ft_strlcpy(buf[C], root_nd->file[6], 14) > 14)

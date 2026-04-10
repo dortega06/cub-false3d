@@ -6,7 +6,7 @@
 /*   By: mcuenca- <mcuenca-@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/02 19:01:39 by mcuenca-          #+#    #+#             */
-/*   Updated: 2026/04/08 14:07:27 by mcuenca-         ###   ########.fr       */
+/*   Updated: 2026/04/10 14:34:43 by mcuenca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,8 @@ void	clean_data_cube(t_cube *root_nd)
 		ft_free_2ptr(root_nd->file);
 	if (root_nd->fd != -1)
 		close(root_nd->fd);
-	while (root_nd->textu[j].image && j < 4)
-	{
-		mlx_destroy_image(root_nd->sys, root_nd->textu[j].image);
-		j++;
-	}
+	while (j < 4 && root_nd->textu[j].image)
+		mlx_destroy_image(root_nd->sys, root_nd->textu[j++].image);
 	//mlx_destroy_window(root_nd->sys, root_nd->win);
 	mlx_destroy_display(root_nd->sys);
 	free(root_nd->sys);

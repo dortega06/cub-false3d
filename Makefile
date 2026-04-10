@@ -6,12 +6,12 @@
 #    By: mcuenca- <mcuenca-@student.42barcelon      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/03/23 16:46:01 by mcuenca-          #+#    #+#              #
-#    Updated: 2026/04/08 18:26:16 by mcuenca-         ###   ########.fr        #
+#    Updated: 2026/04/10 13:18:21 by mcuenca-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC= cc
-CFLAGS= -Wall -Wextra -Werror -Iincludes -Isrcs -Ilibft -Iminilibx-linux -g
+CFLAGS= -Wall -Wextra -Werror -Iincludes -Isrcs -Ilibft -Iminilibx-linux -g #-fsanitize=address
 
 LIBFT_DIR=libft
 LIBFT= libft/libft.a
@@ -28,12 +28,14 @@ SRCS= srcs/main.c \
 	  srcs/split_gnl_cube.c \
 	  srcs/check_cub_extension.c \
 	  srcs/check_xpm_extension.c \
-	  srcs/clean_data_cube.c \
 	  srcs/content_is_valid.c \
 	  srcs/textures_are_valid.c \
 	  srcs/textures_to_images.c \
 	  srcs/colors_are_valid.c \
-	  srcs/map_is_valid.c
+	  srcs/map_is_valid.c \
+	  srcs/rsp.c \
+	  srcs/floodfill.c \
+	  srcs/clean_data_cube.c
 
 OBJS_DIR= objs
 OBJS= $(SRCS:$(SRCS_DIR)/%.c=$(OBJS_DIR)/%.o)

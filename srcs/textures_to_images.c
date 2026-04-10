@@ -6,13 +6,14 @@
 /*   By: mcuenca- <mcuenca-@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 18:06:42 by mcuenca-          #+#    #+#             */
-/*   Updated: 2026/04/08 19:11:20 by mcuenca-         ###   ########.fr       */
+/*   Updated: 2026/04/09 09:29:35 by mcuenca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
 #include "mlx.h"
 #include "mlx_int.h"
+#include "libftprintf.h"
 
 void	textures_to_image(t_cube *root_nd, char **textu_lines)
 {
