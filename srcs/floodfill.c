@@ -6,26 +6,35 @@
 /*   By: mcuenca- <mcuenca-@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/10 12:52:57 by mcuenca-          #+#    #+#             */
-/*   Updated: 2026/04/10 17:35:58 by mcuenca-         ###   ########.fr       */
+/*   Updated: 2026/04/15 18:33:57 by mcuenca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
+#include "libftprintf.h"
 
-t_ff	floodfill(char **map, char rsp_type, int x, int y)
+t_ff	floodfill(int x, int y, t_cube *root_nd, char **visited)
 {
-	if (map[x][y] == '0' || map[x][y] == rsp_type)
+	char	rsp_type;
+	char	**map;
+
+	rsp_type = root_nd->rsp.type;
+	map = root_nd->map;
+	if (map[y][x] != '\0'
+		&& (map[y][x] == '0' || map[y][x] == rsp_type)
+		&& visited[y][x] != 'v')
 	{
-		if (floodfill(map, rsp_type, x, y + 1) == SPC)
+		visited[y][x] = 'v';
+		if (floodfill(x, y + 1, root_nd, visited) == SPC)
 			return (SPC);
-		if (floodfill(map, rsp_type, x + 1, y) == SPC)
+		if (floodfill(x + 1, y, root_nd, visited) == SPC)
 			return (SPC);
-		if (floodfill(map, rsp_type, x, y - 1) == SPC)
+		if (floodfill(x, y - 1, root_nd, visited) == SPC)
 			return (SPC);
-		if (floodfill(map, rsp_type, x - 1, y) == SPC)
+		if (floodfill(x - 1, y, root_nd, visited) == SPC)
 			return (SPC);
 	}
-	else if (map[x][y] == '1')
+	else if (map[y][x] != '\0' && (map[y][x] == '1' || visited[y][x] == 'v'))
 		return (WALL);
 	else
 		return (SPC);

@@ -6,7 +6,7 @@
 /*   By: mcuenca- <mcuenca-@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/07 13:37:16 by mcuenca-          #+#    #+#             */
-/*   Updated: 2026/04/10 16:51:37 by mcuenca-         ###   ########.fr       */
+/*   Updated: 2026/04/15 18:37:36 by mcuenca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int	get_rgb(int r, int g, int b)
 	return (r << 16 | g << 8 | b << 0);
 }
 
+/*ERROR gestionar el tipo de error*/
 t_bool	is_int_in_range(char *buf, t_color *color)
 {
 	int		i;
@@ -30,33 +31,34 @@ t_bool	is_int_in_range(char *buf, t_color *color)
 	i += ft_countnum(color->r);
 	if (color->r < 0 || color->r > 255
 		|| tmp[i] != ',' || !ft_isdigit(tmp[i + 1]))
-		return (FALSE);
+		return (ft_printf("%c Red color is wrong.\n", buf[0]), FALSE);
 	i++;
 	color->g = ft_atoi(&tmp[i]);
 	i += ft_countnum(color->g);
 	if (color->g < 0 || color->g > 255
 		|| tmp[i] != ',' || !ft_isdigit(tmp[i + 1]))
-		return (FALSE);
+		return (ft_printf("%c Green color is wrong.\n", buf[0]), FALSE);
 	tmp++;
 	color->b = ft_atoi(&tmp[i]);
 	i += ft_countnum(color->b);
 	if (color->b < 0 || color->b > 255)
-		return (FALSE);
+		return (ft_printf("%c Blue color is wrong.\n", buf[0]), FALSE);
 	ft_jump_space(tmp, &i);
 	if (tmp[i])
-		return (ft_printf("da da dance\n"), FALSE);
+		return (ft_printf("\n"), FALSE);
 	return (TRUE);
 }
 
-static t_bool	check_nomem(char buf[2][15])
+static t_bool	check_nomen(char buf[2][15])
 {
-	if (ft_strncmp(buf[F], "F ", 2) != 0)
+	if (ft_strncmp(buf[F], "F", 1) != 0)
 		return (FALSE);
-	else if (ft_strncmp(buf[C], "C ", 2) != 0)
+	else if (ft_strncmp(buf[C], "C", 1) != 0)
 		return (FALSE);
 	return (TRUE);
 }
 
+/*AQUI cambiar forma de extraer para obviar espacios y saltos de linea extras*/
 t_bool	extract_colors_lines(t_cube *root_nd, char buf[2][15])
 {
 	int	j;
@@ -84,7 +86,7 @@ t_bool	colors_are_valid(t_cube *root_nd)
 
 	if (!extract_colors_lines(root_nd, buf))
 		return (FALSE);
-	if (!check_nomem(buf))
+	if (!check_nomen(buf))
 		return (FALSE);
 	else if (!is_int_in_range(buf[F], &color[F])
 		|| !is_int_in_range(buf[C], &color[C]))

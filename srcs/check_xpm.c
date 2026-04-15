@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_xpm_extension.c                              :+:      :+:    :+:   */
+/*   check_xpm.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcuenca- <mcuenca-@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/04 20:40:33 by mcuenca-          #+#    #+#             */
-/*   Updated: 2026/04/05 18:02:45 by mcuenca-         ###   ########.fr       */
+/*   Updated: 2026/04/15 17:11:53 by mcuenca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,17 +54,14 @@ int	check_inside(int fd)
 	return (OK);
 }
 
-t_bool	check_xpm_extension(char *file, t_cube *root_nd)
+t_bool	check_xpm(char *file, t_cube *root_nd)
 {
 	int	fd;
 	int	full_len;
 
 	full_len = ft_strlen(file);
-	if (file[full_len - 4] != '.'
-		|| file[full_len - 3] != 'x'
-		|| file[full_len - 2] != 'p'
-		|| file[full_len - 1] != 'm')
-		return (ft_printf("Wrong extension.\n"), FALSE);
+	if (ft_strncmp(&file[full_len - 4], ".xpm", 4) != 0)
+		return (ft_printf("Wrong extension for texture.\n"), FALSE);
 	fd = file_err(file, root_nd);
 	if (fd < 0)
 		return (FALSE);

@@ -6,7 +6,7 @@
 /*   By: mcuenca- <mcuenca-@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/01 12:03:06 by mcuenca-          #+#    #+#             */
-/*   Updated: 2026/04/02 18:08:35 by mcuenca-         ###   ########.fr       */
+/*   Updated: 2026/04/15 17:30:29 by mcuenca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,12 @@ static int	loop(int fd, char **tmp)
 	{
 		bytes = read(fd, buf, BUFFER_SIZE);
 		if (bytes < 0)
-			return (ft_printf("ERROR\n"), ERR);
+			return (ERR);
 		if (bytes == 0)
 			return (ENDOF);
 		buf[bytes] = '\0';
 		if (!concat_reading_lines(tmp, buf))
-			return (ft_printf("MALLOC"), MALLOC);
+			return (MALLOC);
 	}
 	return (OK);
 }

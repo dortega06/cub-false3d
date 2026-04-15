@@ -6,7 +6,7 @@
 /*   By: mcuenca- <mcuenca-@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/28 14:22:28 by mcuenca-          #+#    #+#             */
-/*   Updated: 2026/04/10 16:42:41 by mcuenca-         ###   ########.fr       */
+/*   Updated: 2026/04/15 18:37:05 by mcuenca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ typedef struct s_cube
 {
 	int			fd;
 	char		**file;
+	char		**map;
 	void		*sys;
 	int			width;
 	int			height;
@@ -88,10 +89,10 @@ typedef struct s_cube
 
 t_bool	parse_cub(char *file, t_cube *root_nd);
 int		file_err(char *name_file, t_cube *root_nd);
-t_bool	extension(char *file, char *flag, t_cube *root_nd);
+t_bool	check_mng(char *file, char *flag, t_cube *root_nd);
 char	**split_gnl_cube(char const *s, char c);
-t_bool	check_cub_extension(char *file, t_cube *root_nd);
-t_bool	check_xpm_extension(char *file, t_cube *root_nd);
+t_bool	check_cub(char *file, t_cube *root_nd);
+t_bool	check_xpm(char *file, t_cube *root_nd);
 t_bool	content_is_valid(t_cube *root_nd);
 t_bool	textures_are_valid(t_cube *root_nd);
 void	textures_to_image(t_cube *root_nd, char **textu_lines);
@@ -99,7 +100,8 @@ t_bool	colors_are_valid(t_cube *root_nd);
 t_bool	map_is_valid(t_cube *root_nd);
 t_vex	rsp(const char **map, t_vex *rsp);
 t_bool	only_one_rsp(char **map, t_vex *rsp);
-t_ff	floodfill(char **map, char rsp, int x, int y);
+//t_ff	floodfill(char **map, char rsp, int x, int y);
+t_ff	floodfill(int x, int y, t_cube *root_nd, char **visited);
 void	clean_data_cube(t_cube *root_nd);
 
 #endif

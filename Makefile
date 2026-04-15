@@ -6,7 +6,7 @@
 #    By: mcuenca- <mcuenca-@student.42barcelon      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/03/23 16:46:01 by mcuenca-          #+#    #+#              #
-#    Updated: 2026/04/10 13:18:21 by mcuenca-         ###   ########.fr        #
+#    Updated: 2026/04/15 15:36:38 by mcuenca-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,10 +24,10 @@ HEAD= includes/cube3d.h
 SRCS_DIR= srcs
 SRCS= srcs/main.c \
 	  srcs/parse.c \
-	  srcs/extension.c \
+	  srcs/check_mng.c \
 	  srcs/split_gnl_cube.c \
-	  srcs/check_cub_extension.c \
-	  srcs/check_xpm_extension.c \
+	  srcs/check_cub.c \
+	  srcs/check_xpm.c \
 	  srcs/content_is_valid.c \
 	  srcs/textures_are_valid.c \
 	  srcs/textures_to_images.c \

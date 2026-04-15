@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_cub_extension.c                              :+:      :+:    :+:   */
+/*   check_cub.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcuenca- <mcuenca-@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/31 16:49:01 by mcuenca-          #+#    #+#             */
-/*   Updated: 2026/04/08 13:25:34 by mcuenca-         ###   ########.fr       */
+/*   Updated: 2026/04/15 17:37:30 by mcuenca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ t_bool	read_sample(char **content, int sample)
 	int	i;
 	int	j;
 
-	if (!content || (content && !*content) || sample < 0)
-		return (FALSE);
+	if (!content || (content && !*content))
+		return (ft_printf("File is empty.\n"), FALSE);
 	j = 0;
 	while (content[j] && j < sample)
 	{
@@ -68,7 +68,10 @@ static char	*loop(int fd)
 	while (one_line)
 	{
 		return_val = gnl(fd, &tmp);
-		if (return_val == MALLOC)
+		if (return_val == ERR)
+			return (ft_printf("File could not be read.\n"),
+				ft_free(one_line), NULL);
+		else if (return_val == MALLOC)
 			return (ft_free(one_line), NULL);
 		else if (return_val == ENDOF)
 			return (one_line);
@@ -93,22 +96,27 @@ char	**read_content(int fd)
 	return (content);
 }
 
-t_bool	check_cub_extension(char *file, t_cube *root_nd)
+t_bool	check_cub(char *file_name, t_cube *root_nd)
 {
+	int		fd;
 	int		full_len;
 	char	**content;
 
-	full_len = ft_strlen(file);
-	if (file[full_len - 4] != '.'
-		|| file[full_len - 3] != 'c'
-		|| file[full_len - 2] != 'u'
-		|| file[full_len - 1] != 'b')
-		return (ft_printf("Wrong extension.\n"), FALSE);
+	full_len = ft_strlen(file_name);
+	if (ft_strncmp(&file_name[full_len - 4], ".cub", 4) != 0)
+		return (ft_printf("Wrong extension for cub file.\n"), FALSE);
+	if (!file_name && file_name[0] == '\0')
+		return (ft_printf("File does not exist"), FALSE);
+	fd = file_err(file_name, root_nd);
+	if (fd < 0)
+		return (FALSE);
 	content = read_content(root_nd->fd);
 	if (!content)
 		return (FALSE);
 	if (!read_sample(content, 8))
 		return (ft_free_2ptr(content), FALSE);
 	root_nd->file = content;
+	close(fd);
+	root_nd->fd = -1;
 	return (TRUE);
 }
