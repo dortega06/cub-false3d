@@ -6,7 +6,7 @@
 #    By: mcuenca- <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/26 12:46:32 by mcuenca-          #+#    #+#              #
-#    Updated: 2026/04/08 18:30:32 by mcuenca-         ###   ########.fr        #
+#    Updated: 2026/04/16 14:46:35 by mcuenca-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ SRCS = ft_isalnum.c ft_isalpha.c ft_isascii.c ft_isdigit.c ft_isprint.c ft_tolow
 	   \
 	   ft_atoi.c ft_split.c ft_strchr.c ft_strcmp.c ft_strdup.c ft_striteri.c \
 	   ft_strjoin.c ft_strlcat.c ft_strlcpy.c ft_strlen.c ft_strmapi.c ft_strncmp.c \
-	   ft_strnstr.c ft_strrchr.c ft_strtrim.c ft_substr.c \
+	   ft_strnstr.c ft_strrchr.c ft_strtrim.c ft_substr.c ft_normalize_str.c\
 	   \
 	   ft_itoa.c ft_count.c ft_array_w_max-min.c ft_color.c \
        \

@@ -6,7 +6,7 @@
 #    By: mcuenca- <mcuenca-@student.42barcelon      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/03/23 16:46:01 by mcuenca-          #+#    #+#              #
-#    Updated: 2026/04/15 15:36:38 by mcuenca-         ###   ########.fr        #
+#    Updated: 2026/04/17 15:07:08 by mcuenca-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,7 @@ SRCS= srcs/main.c \
 	  srcs/check_cub.c \
 	  srcs/check_xpm.c \
 	  srcs/content_is_valid.c \
+	  srcs/extract_lines.c \
 	  srcs/textures_are_valid.c \
 	  srcs/textures_to_images.c \
 	  srcs/colors_are_valid.c \

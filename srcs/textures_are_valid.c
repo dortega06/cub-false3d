@@ -6,7 +6,7 @@
 /*   By: mcuenca- <mcuenca-@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/04 18:34:12 by mcuenca-          #+#    #+#             */
-/*   Updated: 2026/04/15 18:37:01 by mcuenca-         ###   ########.fr       */
+/*   Updated: 2026/04/17 15:05:05 by mcuenca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,32 +41,11 @@ static t_bool	check_nomen(char **texture_lines)
 	return (TRUE);
 }
 
-/*AQUI cambiar forma de extraer para obviar espacios y saltos de lineas extras*/
-char	**extract_texture_lines(t_cube *root_nd)
-{
-	int		j;
-	char	**tmp;
-
-	j = 0;
-	tmp = ft_calloc(4 + 1, sizeof(char *));
-	if (!tmp)
-		return (NULL);
-	while (j < 4)
-	{
-		tmp[j] = ft_strdup(root_nd->file[j]);
-		if (!tmp[j])
-			return (ft_free_2ptr(tmp), NULL);
-		j++;
-	}
-	tmp[j] = NULL;
-	return (tmp);
-}
-
-t_bool	textures_are_valid(t_cube *root_nd)
+t_bool	textures_are_valid(t_cube *root_nd, int *j)
 {
 	char	**tmp;
 
-	tmp = extract_texture_lines(root_nd);
+	tmp = extract_lines(root_nd, 4, j);
 	if (!tmp)
 		return (FALSE);
 	if (!check_nomen(tmp))

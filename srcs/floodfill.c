@@ -6,7 +6,7 @@
 /*   By: mcuenca- <mcuenca-@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/10 12:52:57 by mcuenca-          #+#    #+#             */
-/*   Updated: 2026/04/15 18:33:57 by mcuenca-         ###   ########.fr       */
+/*   Updated: 2026/04/18 17:37:46 by mcuenca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_ff	floodfill(int x, int y, t_cube *root_nd, char **visited)
 	rsp_type = root_nd->rsp.type;
 	map = root_nd->map;
 	if (map[y][x] != '\0'
-		&& (map[y][x] == '0' || map[y][x] == rsp_type)
+		&& (map[y][x] == '0' || (map[y][x] == rsp_type && x != 0))
 		&& visited[y][x] != 'v')
 	{
 		visited[y][x] = 'v';

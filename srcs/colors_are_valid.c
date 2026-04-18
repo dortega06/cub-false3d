@@ -6,7 +6,7 @@
 /*   By: mcuenca- <mcuenca-@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/07 13:37:16 by mcuenca-          #+#    #+#             */
-/*   Updated: 2026/04/15 18:37:36 by mcuenca-         ###   ########.fr       */
+/*   Updated: 2026/04/18 17:38:56 by mcuenca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,79 +19,73 @@ int	get_rgb(int r, int g, int b)
 	return (r << 16 | g << 8 | b << 0);
 }
 
-/*ERROR gestionar el tipo de error*/
-t_bool	is_int_in_range(char *buf, t_color *color)
+t_bool	check_int_errors(char nomen, char *s, int *color, char **ptr)
 {
-	int		i;
+	if (!ft_isdigit(**ptr))
+		return (ft_printf("%c %s color \'%c\' is misplaced.\n",
+				nomen, s, **ptr), FALSE);
+	else
+	{
+		if (**ptr == '0')
+		{
+			if ((*ptr)[1] && ft_isdigit((*ptr)[1]))
+				return (ft_printf("%c %s "
+						"color invalid number format.\n", nomen, s), FALSE);
+		}
+	}
+	*color = ft_atoi(*ptr);
+	while (*ptr && ft_isdigit(**ptr))
+		(*ptr)++;
+	if (**ptr != ',' && **ptr != '\0')
+		return (ft_printf("%c %s color is not properly set.\n", nomen, s),
+			FALSE);
+	else if (*color < 0 || *color > 255)
+		return (ft_printf("%c %s color is not in range.\n", nomen, s), FALSE);
+	return (TRUE);
+}
+
+t_bool	is_int_in_range(char nomen, char *buf, t_color *color)
+{
 	char	*tmp;
 
-	i = 2;
-	tmp = buf;
-	color->r = ft_atoi(&tmp[i]);
-	i += ft_countnum(color->r);
-	if (color->r < 0 || color->r > 255
-		|| tmp[i] != ',' || !ft_isdigit(tmp[i + 1]))
-		return (ft_printf("%c Red color is wrong.\n", buf[0]), FALSE);
-	i++;
-	color->g = ft_atoi(&tmp[i]);
-	i += ft_countnum(color->g);
-	if (color->g < 0 || color->g > 255
-		|| tmp[i] != ',' || !ft_isdigit(tmp[i + 1]))
-		return (ft_printf("%c Green color is wrong.\n", buf[0]), FALSE);
+	tmp = &buf[2];
+	if (!check_int_errors(nomen, "red", &color->r, &tmp))
+		return (FALSE);
 	tmp++;
-	color->b = ft_atoi(&tmp[i]);
-	i += ft_countnum(color->b);
-	if (color->b < 0 || color->b > 255)
-		return (ft_printf("%c Blue color is wrong.\n", buf[0]), FALSE);
-	ft_jump_space(tmp, &i);
-	if (tmp[i])
-		return (ft_printf("\n"), FALSE);
+	if (!check_int_errors(nomen, "green", &color->g, &tmp))
+		return (FALSE);
+	tmp++;
+	if (!check_int_errors(nomen, "blue", &color->r, &tmp))
+		return (FALSE);
+	if (tmp && *tmp != '\0')
+		return (ft_printf("Color must be the \'%c n,n,n\'.\n", nomen), FALSE);
 	return (TRUE);
 }
 
-static t_bool	check_nomen(char buf[2][15])
+static t_bool	check_nomen(char **color_lines)
 {
-	if (ft_strncmp(buf[F], "F", 1) != 0)
-		return (FALSE);
-	else if (ft_strncmp(buf[C], "C", 1) != 0)
-		return (FALSE);
+	if (ft_strncmp(color_lines[F], "F", 1) != 0)
+		return (ft_printf("F nomenclature is wrong.\n"), FALSE);
+	else if (ft_strncmp(color_lines[C], "C", 1) != 0)
+		return (ft_printf("C nomenclature is wrong.\n"), FALSE);
 	return (TRUE);
 }
 
-/*AQUI cambiar forma de extraer para obviar espacios y saltos de linea extras*/
-t_bool	extract_colors_lines(t_cube *root_nd, char buf[2][15])
+t_bool	colors_are_valid(t_cube *root_nd, int *j)
 {
-	int	j;
-
-	j = 4;
-	while (j < 8)
-	{
-		if (!root_nd->file[j]
-			|| ((root_nd->file[j] && root_nd->file[j][0] != '\n')
-			&& (j == 4 || j == 7)))
-			return (FALSE);
-		j++;
-	}
-	if (ft_strlcpy(buf[F], root_nd->file[5], 14) > 14)
-		return (FALSE);
-	if (ft_strlcpy(buf[C], root_nd->file[6], 14) > 14)
-		return (FALSE);
-	return (TRUE);
-}
-
-t_bool	colors_are_valid(t_cube *root_nd)
-{
-	char	buf[2][15];
+	char	**tmp;
 	t_color	color[2];
 
-	if (!extract_colors_lines(root_nd, buf))
-		return (FALSE);
-	if (!check_nomen(buf))
-		return (FALSE);
-	else if (!is_int_in_range(buf[F], &color[F])
-		|| !is_int_in_range(buf[C], &color[C]))
-		return (FALSE);
+	tmp = extract_lines(root_nd, 2, j);
+	if (!tmp)
+		return (ft_free_2ptr(tmp), FALSE);
+	if (!check_nomen(tmp))
+		return (ft_free_2ptr(tmp), FALSE);
+	else if (!is_int_in_range('F', tmp[F], &color[F])
+		|| !is_int_in_range('C', tmp[C], &color[C]))
+		return (ft_free_2ptr(tmp), FALSE);
 	root_nd->f = get_rgb(color[F].r, color[F].g, color[F].b);
 	root_nd->c = get_rgb(color[C].r, color[C].g, color[C].b);
+	ft_free_2ptr(tmp);
 	return (TRUE);
 }

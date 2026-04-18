@@ -6,7 +6,7 @@
 /*   By: mcuenca- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 12:46:49 by mcuenca-          #+#    #+#             */
-/*   Updated: 2026/04/08 18:33:05 by mcuenca-         ###   ########.fr       */
+/*   Updated: 2026/04/17 13:40:34 by mcuenca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,19 @@ typedef enum e_err
 	ENDOF = 2
 }	t_err;
 
+typedef enum e_bool
+{
+	FALSE = 0,
+	TRUE = 1
+}	t_bool;
+
+typedef enum e_mem
+{
+	 LACK = -1,
+	 FIT = 0,
+	 TOO = 1
+}	t_mem;
+
 int		ft_isalpha(int c);
 int		ft_isdigit(int c);
 int		ft_isalnum(int c);
@@ -48,6 +61,9 @@ int		ft_str_isprint(const char *str);
 int		ft_str_isascii(const char *str);
 int		ft_str_2ptr_isprint(const char **str_2ptr);
 void	ft_jump_space(const char *str, int *i);
+int		ft_isbreakline(char *s);
+char	*ft_normalize_dy_str(const char *s);
+t_mem	ft_normalize_st_str(char *dest, char *s, int dest_len);
 int		ft_str_what_is(const char *str);
 size_t	ft_strlen(const char *c);
 void	*ft_memset(void *s, int c, size_t n);
