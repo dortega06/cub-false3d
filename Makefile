@@ -6,15 +6,16 @@
 #    By: mcuenca- <mcuenca-@student.42barcelon      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/03/23 16:46:01 by mcuenca-          #+#    #+#              #
-#    Updated: 2026/04/17 15:07:08 by mcuenca-         ###   ########.fr        #
+#    Updated: 2026/04/21 13:46:54 by mcuenca-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC= cc
-CFLAGS= -Wall -Wextra -Werror -Iincludes -Isrcs -Ilibft -Iminilibx-linux -g #-fsanitize=address
+CFLAGS= -Wall -Wextra -Werror -g
+INCS= -Iincludes -Isrcs -I$(LIBFT_DIR) -I$(MLX_DIR) #-fsanitize=address 
 
 LIBFT_DIR=libft
-LIBFT= libft/libft.a
+LIBFT= $(LIBFT_DIR)/libft.a
 MLX_DIR= minilibx-linux
 MLX= minilibx-linux/libmlx.a
 LIBS= $(LIBFT) $(MLX) -lXext -lX11 -lm
@@ -43,33 +44,34 @@ OBJS= $(SRCS:$(SRCS_DIR)/%.c=$(OBJS_DIR)/%.o)
 
 NAME= cube3d
 
-all: $(NAME)
-
-$(NAME): $(OBJS) libs
-	$(CC) $(CFLAGS) $(OBJS) $(LIBS) -o $(NAME)
+all: libs $(NAME)
 
 libs: $(LIBFT) $(MLX)
 
-$(LIBFT):
-	$(MAKE) -C $(LIBFT_DIR)
+$(LIBFT): $(LIBFT_DIR)/Makefile $(LIBFT_DIR)/libft.h $(LIBFT_DIR)/libftprintf.h $(LIBFT_DIR)/gnl.h
+	$(MAKE) -sC $(LIBFT_DIR)
 
 $(MLX):
 	$(MAKE) -C $(MLX_DIR)
 
-$(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c $(HEAD) Makefile
-	@mkdir -p $(OBJS_DIR)
-	$(CC) $(CFLAGS) -c $< -o $@
+$(NAME): $(OBJS) $(HEAD)
+	$(CC) $(CFLAGS) $(INCS) $(OBJS) $(LIBS) -o $(NAME)
 
-vpath %.c is mem print print/print_srcs put str num lst gnl
+$(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c $(HEAD) Makefile
+	@mkdir -p $(OBJS_DIR)/
+	$(CC) $(CFLAGS) $(INCS) -MMD -c $< -o $@
+
+vpath %.c srcs
 
 clean:
-	$(MAKE) -C  $(LIBFT_DIR) clean
-	$(MAKE) -C  $(MLX_DIR) clean
 	rm -f $(OBJS)
-	if [ -d $(OBJS_DIR) ]; then rm -drf $(OBJS_DIR); fi
+	rm -rf $(DIR_OBJS)
 
-fclean: clean
-	$(MAKE) -C  $(LIBFT_DIR) fclean
+clean_libs: clean 
+	$(MAKE) -C $(LIBFT_DIR) fclean
+	$(MAKE) -C $(MLX_DIR) clean
+
+fclean: clean_libs
 	rm -f $(NAME)
 
 re: fclean all

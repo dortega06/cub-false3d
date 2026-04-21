@@ -6,7 +6,7 @@
 #    By: mcuenca- <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/26 12:46:32 by mcuenca-          #+#    #+#              #
-#    Updated: 2026/04/16 14:46:35 by mcuenca-         ###   ########.fr        #
+#    Updated: 2026/04/21 13:47:55 by mcuenca-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,8 +31,8 @@ SRCS = ft_isalnum.c ft_isalpha.c ft_isascii.c ft_isdigit.c ft_isprint.c ft_tolow
 	   ft_printf.c print_c.c print_s.c print_p.c print_d.c print_u.c print_x.c \
 	   \
 	   gnl.c gnl_utils.c ft_read_2ptr.c
-DIR_OBJ = objs
-OBJS = $(addprefix $(DIR_OBJ)/, $(notdir $(SRCS:.c=.o))) #$(SRCS:.c=.o)
+OBJS_DIR = objs
+OBJS = $(addprefix $(OBJS_DIR)/, $(notdir $(SRCS:.c=.o))) #$(SRCS:.c=.o)
 HEADER = libft.h libftprintf.h gnl.h 
 NAME = libft.a
 
@@ -41,15 +41,15 @@ all: $(NAME)
 $(NAME): $(OBJS) $(HEADER)
 	ar -rcs $(NAME) $(OBJS)
 
-$(DIR_OBJ)/%.o: %.c $(HEADER) Makefile
-	@mkdir -p $(DIR_OBJ)/ #if [ ! -d $(DIR_OBJ) ]; then mkdir -p $(DIR_OBJ)/; fi # '-p'  ya comprueva si el directorio existe y no hará nada si ya existe, si no, pues lo creara
+$(OBJS_DIR)/%.o: %.c $(HEADER) Makefile
+	@mkdir -p $(OBJS_DIR)/ #if [ ! -d $(OBJS_DIR) ]; then mkdir -p $(OBJS_DIR)/; fi # '-p'  ya comprueva si el directorio existe y no hará nada si ya existe, si no, pues lo creara
 	$(CC) $(CFLAGS) -c $< -o $@ 
 
 vpath %.c is mem print print/print_srcs put str num lst gnl
 
 clean:
 	rm -f $(OBJS)
-	if [ -d $(DIR_OBJ) ]; then rm -d $(DIR_OBJ); fi
+	rm -rf $(OBJS_DIR)
 
 fclean: clean
 	rm -f $(NAME)
