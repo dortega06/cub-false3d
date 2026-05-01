@@ -25,7 +25,7 @@ When executing the program with a proper map, it will open a window that shows a
 3. `make`
 4. `./<program_name>`
 
-## Recourses
+## Resourses
 
 - Peers:
     - diespino
