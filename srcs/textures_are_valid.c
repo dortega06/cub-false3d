@@ -6,11 +6,24 @@
 /*   By: mcuenca- <mcuenca-@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/04 18:34:12 by mcuenca-          #+#    #+#             */
-/*   Updated: 2026/04/17 15:05:05 by mcuenca-         ###   ########.fr       */
+/*   Updated: 2026/05/08 20:28:08 by mcuenca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
+
+char	**only_path(char **full_str)
+{
+	int		j;
+
+	j = 0;
+	while (j < 4)
+	{
+		ft_strlcpy(full_str[j], &(full_str[j][3]), ft_strlen(full_str[j]) - 2);
+		j++;
+	}
+	return (full_str);
+}
 
 t_bool	xmp_check_loop(char **texture_lines, t_cube *root_nd)
 {
@@ -51,8 +64,7 @@ t_bool	textures_are_valid(t_cube *root_nd, int *j)
 	if (!check_nomen(tmp))
 		return (ft_free_2ptr(tmp), FALSE);
 	else if (!xmp_check_loop(tmp, root_nd))
-		return (ft_free_2ptr(tmp), FALSE);
-	textures_to_image(root_nd, tmp);
-	ft_free_2ptr(tmp);
+		return (ft_free_2ptr(tmp), FALSE);	
+	root_nd->textu_path = only_path(tmp);
 	return (TRUE);
 }

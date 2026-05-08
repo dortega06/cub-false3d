@@ -6,7 +6,7 @@
 #    By: mcuenca- <mcuenca-@student.42barcelon      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/03/23 16:46:01 by mcuenca-          #+#    #+#              #
-#    Updated: 2026/04/21 13:46:54 by mcuenca-         ###   ########.fr        #
+#    Updated: 2026/05/08 19:37:31 by mcuenca-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,11 +32,16 @@ SRCS= srcs/main.c \
 	  srcs/content_is_valid.c \
 	  srcs/extract_lines.c \
 	  srcs/textures_are_valid.c \
-	  srcs/textures_to_images.c \
 	  srcs/colors_are_valid.c \
 	  srcs/map_is_valid.c \
 	  srcs/rsp.c \
 	  srcs/floodfill.c \
+	  srcs/execute.c \
+	  srcs/moves.c \
+	  srcs/texture_utils.c \
+	  srcs/events.c \
+	  srcs/render.c \
+	  srcs/calculate_texture.c \
 	  srcs/clean_data_cube.c
 
 OBJS_DIR= objs

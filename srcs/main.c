@@ -6,14 +6,13 @@
 /*   By: mcuenca- <mcuenca-@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/23 17:16:05 by mcuenca-          #+#    #+#             */
-/*   Updated: 2026/04/15 17:11:27 by mcuenca-         ###   ########.fr       */
+/*   Updated: 2026/05/08 20:36:34 by mcuenca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "libftprintf.h"
 #include "mlx.h"
-#include "mlx_int.h"
 #include "cube3d.h"
 
 int	cube_instructions(void)
@@ -39,24 +38,23 @@ int	cube_instructions(void)
 		"11111\n");
 	return (1);
 }
+void	init_data_parse(t_cube *root_nd)
+{
+	root_nd->fd = -1;
+	root_nd->file = NULL;
+}
 
 int	main(int argc, char **argv)
 {
-	int		j;
 	t_cube	root_nd;
 
 	if (argc != 2)
 		return (cube_instructions());
-	root_nd.fd = -1;
-	root_nd.width = 512;
-	root_nd.height = 512;
-	root_nd.file = NULL;
-	root_nd.sys = mlx_init();
-	j = 0;
-	while (j < 4)
-		root_nd.textu[j++].image = NULL;
+	ft_memset(&root_nd, 0, sizeof(t_cube));
+	init_data_parse(&root_nd);
 	if (!parse_cub(argv[1], &root_nd))
 		return (clean_data_cube(&root_nd), 1);
+	execute(&root_nd);/*Could something work wrong? YES: put ft in if condition/ NO: do nothing*/
 	clean_data_cube(&root_nd);
 	ft_printf("All works correct and clean :D!\n");
 	return (0);
