@@ -6,21 +6,21 @@
 /*   By: dortega- <dortega-@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/18 17:31:32 by dortega-          #+#    #+#             */
-/*   Updated: 2026/05/09 13:46:07 by dortega-         ###   ########.fr       */
+/*   Updated: 2026/05/09 17:49:06 by mcuenca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
 
-
+/*
 //	Dibuja un píxel en la posición (x, y) de la imagen, con el color indicado.
-//
+
 //	@param	x		Posición horizontal.
 //	@param	y		Posición vertical.
 //	@param	color	Color en formato 0xRRGGBB.
 //	@param	game	Puntero a la estructura principal del juego.
 //	@return	N/A
-
+*/
 void	put_pixel(int x, int y, int color, t_game *game)
 {
 	int	index;
@@ -33,11 +33,13 @@ void	put_pixel(int x, int y, int color, t_game *game)
 	game->data[index + 2] = (color >> 16) & 0xFF;
 }
 
+/*
+//	Pinta el techo y el suelo de la ventana con sus respectivos colores
+	definidos.
 
-//	Pinta el techo y el suelo de la ventana con sus respectivos colores definidos.
-//
-//	Recorre todos los píxeles superiores y aplica el color del techo, y los inferiores el del suelo.
-
+//	Recorre todos los píxeles superiores y aplica el color del techo, y los
+	inferiores el del suelo.
+*/
 void	draw_ceiling_and_floor(t_game *game)
 {
 	int	x;
@@ -50,7 +52,6 @@ void	draw_ceiling_and_floor(t_game *game)
 		while (x < WIDTH)
 		{
 			put_pixel(x, y, game->color[C], game);
-		//	put_pixel(x, y, CEILING_COLOR, game);
 			x++;
 		}
 		y++;
@@ -62,25 +63,25 @@ void	draw_ceiling_and_floor(t_game *game)
 		while (x < WIDTH)
 		{
 			put_pixel(x, y, game->color[F], game);
-			//put_pixel(x, y, FLOOR_COLOR, game);
 			x++;
 		}
 		y++;
 	}
 }
 
+/*
 //	Dibuja un cuadrado hueco en pantalla en la posición y tamaño especificados.
-//
+
 //	Traza los cuatro lados del cuadrado usando el color recibido.
-//
+
 //	@param	x		Coordenada X inicial del cuadrado.
 //	@param	y		Coordenada Y inicial del cuadrado.
 //	@param	size	Tamaño de los lados del cuadrado.
 //	@param	color	Color del cuadrado.
 //	@param	game	Puntero a la estructura principal del juego.
 //	@return	N/A
-
-void	draw_square(int x, int y, int size, int color, t_game *game)//Creo que no lo usa
+*/
+/*void	draw_square(int x, int y, int size, int color, t_game *game)
 {
 	int	i;
 
@@ -108,15 +109,15 @@ void	draw_square(int x, int y, int size, int color, t_game *game)//Creo que no l
 		put_pixel(x + i, y + size, color, game);
 		i++;
 	}
-}
+}*/
+/*
+//	Dibuja el minimapa representando los muros del mapa del juego como
+	cuadrados.
 
-
-//	Dibuja el minimapa representando los muros del mapa del juego como cuadrados.
-//
 //	@param	game	Puntero a la estructura principal del juego.
 //	@return	N/A
-
-/*void	draw_map(t_game *game)//creo que ya no lo usa.
+*/
+/*void	draw_map(t_game *game)
 {
 	char	**map;
 	int		color;
@@ -139,25 +140,32 @@ void	draw_square(int x, int y, int size, int color, t_game *game)//Creo que no l
 	}
 }*/
 
+/*
 //	Bucle principal de renderizado del juego. 
 //
-//	Realiza el movimiento del jugador, limpia la imagen, pinta el techo y el suelo, y recorre la pantalla "WIDTH" veces 
-//	lanzando rayos para dibujar las paredes 3D usando la técnica de raycasting.
-//
+//	Realiza el movimiento del jugador, limpia la imagen, pinta el techo y el
+	suelo, y recorre la pantalla "WIDTH" veces lanzando rayos para dibujar las
+	paredes 3D usando la técnica de raycasting.
+
 //	@param	game	Puntero a la estructura principal del juego.
 //	@return			Devuelve siempre 0.
-
-int draw_loop(t_game *game)
+*/
+int	draw_loop(t_game *game)
 {
-	t_player *player = &game->player;
+	t_player	*player;
+	double		fov;
+	double		angle_step;
+	double		ray_angle;
+	int			i;
+
+	player = &game->player;
+	fov = PI / 3.0;
+	angle_step = fov / (double)WIDTH;
+	ray_angle = player->angle - (fov / 2.0);
+	i = 0;
 	move_player(player);
 	clear_img(game);
 	draw_ceiling_and_floor(game);
-
-	double fov = PI / 3.0;
-	double angle_step = fov / (double)WIDTH;
-	double ray_angle = player->angle - (fov / 2.0);
-	int i = 0;
 	while (i < WIDTH)
 	{
 		draw_line(player, game, ray_angle, i);
@@ -165,23 +173,26 @@ int draw_loop(t_game *game)
 		i++;
 	}
 	mlx_put_image_to_window(game->mlx, game->wnd, game->img, 0, 0);
-	(void)player;
-//	printf("AQUI\n");
 	return (0);
 }
 
-//	Lanza un rayo desde la posición del jugador en un ángulo determinado y dibuja la columna de pared correspondiente.
-//
-//	Utiliza el algoritmo DDA para avanzar en la cuadrícula del mapa hasta encontrar un muro.
-//	Calcula la distancia perpendicular a la pared, determina la franja vertical a dibujar, 
-//	realiza el mapeo de textura y pinta la pared columna a columna con la textura adecuada y orientación correcta.
-//
+/*
+//	Lanza un rayo desde la posición del jugador en un ángulo determinado y
+	dibuja la columna de pared correspondiente.
+
+//	Utiliza el algoritmo DDA para avanzar en la cuadrícula del mapa hasta
+	encontrar un muro.
+//	Calcula la distancia perpendicular a la pared, determina la franja vertical
+	a dibujar, realiza el mapeo de textura y pinta la pared columna a columna con
+	la textura adecuada y orientación correcta.
+
 //	@param	player		Puntero a la estructura del jugador.
 //	@param	game		Puntero a la estructura principal del juego.
 //	@param	start_x		Ángulo del rayo en radianes.
-//	@param	i			Columna horizontal de la pantalla donde se pinta la pared.
+//	@param	i			Columna horizontal de la pantalla donde se pinta
+						la pared.
 //	@return				N/A
-
+*/
 void	draw_line(t_player *player, t_game *game, float start_x, int i)
 {
 	double	pos_x = player->x / BLOCK;

@@ -6,15 +6,16 @@
 /*   By: dortega- <dortega-@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/03 19:07:38 by dortega-          #+#    #+#             */
-/*   Updated: 2026/05/08 19:19:16 by mcuenca-         ###   ########.fr       */
+/*   Updated: 2026/05/09 16:48:41 by mcuenca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
 
-
-//	Libera la memoria reservada para las rutas de las texturas de la estructura game.
-
+/*
+//	Libera la memoria reservada para las rutas de las texturas de la estructura
+	game.
+*/
 static void	free_texture_paths(t_game *game)
 {
 	if (game->textures.north)
@@ -27,12 +28,14 @@ static void	free_texture_paths(t_game *game)
 		free(game->textures.east);
 }
 
-//	Libera la memoria de una textura individual destruyéndola con mlx_destroy_image.
-//
+/*
+//	Libera la memoria de una textura individual destruyéndola con
+	mlx_destroy_image.
+
 //	@param	game	Puntero a la estructura principal del juego.
 //	@param	index	Índice de la textura a liberar.
 //	@return	N/A
-
+*/
 static void	destroy_single_texture(t_game *game, int index)
 {
 	if (game->texture_imgs[index].img_ptr)
@@ -41,10 +44,12 @@ static void	destroy_single_texture(t_game *game, int index)
 	game->texture_imgs[index].addr = NULL;
 }
 
+/*
 //	Libera toda la memoria reservada para las texturas y resetea punteros.
 
 //	@param	game	Puntero a la estructura principal del juego.
 //	@return	N/A
+*/
 void	free_textures(t_game *game)
 {
 	if (!game || !game->texture_imgs)
@@ -58,7 +63,10 @@ void	free_textures(t_game *game)
 	game->textures_loaded = 0;
 }
 
-//	Libera todos los recursos asociados al juego, como imágenes, ventanas, mapas y texturas.
+/*
+	Libera todos los recursos asociados al juego, como imágenes, ventanas,
+	mapas y texturas.
+*/
 static void	free_game_resources(t_game *game)
 {
 	if (game->texture_imgs)
@@ -72,21 +80,20 @@ static void	free_game_resources(t_game *game)
 	free_texture_paths(game);
 }
 
-
-//	Cierra el juego de forma segura liberando todos los recursos y cerrando la ventana.
-
+/*
+//	Cierra el juego de forma segura liberando todos los recursos y cerrando la
+	ventana.
+*/
 int	close_game(t_game *game)
 {
 	if (!game)
-		exit(0);
-
+		exit(0);/*LEAK?*/
 	free_game_resources(game);
 	if (game->mlx)
 	{
 		mlx_destroy_display(game->mlx);
 		free(game->mlx);
 	}
-
-	exit(0);
+	exit(0);/*LEAK?*/
 	return (0);
 }

@@ -6,16 +6,16 @@
 /*   By: dortega- <dortega-@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/30 17:08:31 by dortega-          #+#    #+#             */
-/*   Updated: 2026/05/09 13:33:13 by dortega-         ###   ########.fr       */
+/*   Updated: 2026/05/09 17:22:55 by mcuenca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
 #include <math.h>
 
-
-//Limpia la imagen de la ventana, poniendo todos los píxeles a negro.
-
+/*
+Limpia la imagen de la ventana, poniendo todos los píxeles a negro.
+*/
 void	clear_img(t_game *game)
 {
 	int	y;
@@ -34,10 +34,11 @@ void	clear_img(t_game *game)
 	}
 }
 
-
-//Carga todas las texturas necesarias para el juego desde los archivos correspondientes.
-
-static void	load_all_textures(t_game *game, t_cube *parse)//podemos cambiarlo por mi version?
+/*
+//	Carga todas las texturas necesarias para el juego desde los archivos
+	correspondientes.
+*/
+static void	load_all_textures(t_game *game, t_cube *parse)
 {
 	int	j;
 
@@ -47,14 +48,11 @@ static void	load_all_textures(t_game *game, t_cube *parse)//podemos cambiarlo po
 		load_texture(game, j, parse->textu_path[j]);
 		j++;
 	}
-	/*load_texture(game, 0, "./textures/redbrick.xpm");
-	load_texture(game, 1, "./textures/greystone.xpm");
-	load_texture(game, 2, "./textures/wood.xpm");
-	load_texture(game, 3, "./textures/mossy.xpm");*/
 }
 
+/*
 // Inicializa todas las variables y recursos necesarios para empezar el juego.
-
+*/
 void	init_game(t_game *game, t_cube *parse)
 {
 	init_player(&game->player, &parse->rsp);
@@ -62,11 +60,9 @@ void	init_game(t_game *game, t_cube *parse)
 	game->color[F] = parse->f;
 	game->color[C] = parse->c;
 	game->map = parse->map;
-
 	game->map_height = 0;
 	while (game->map[game->map_height])
 		game->map_height++;
-
 	game->mlx = mlx_init();
 	game->wnd = mlx_new_window(game->mlx, WIDTH, HEIGHT, "Game");
 	game->img = mlx_new_image(game->mlx, WIDTH, HEIGHT);
@@ -75,16 +71,18 @@ void	init_game(t_game *game, t_cube *parse)
 	load_all_textures(game, parse);
 	mlx_put_image_to_window(game->mlx, game->wnd, game->img, 0, 0);
 }
-/*
 
-// Verifica si la posición indicada choca con una pared o está fuera de los límites del mapa.
+/*
+// Verifica si la posición indicada choca con una pared o está fuera de los
+	límites del mapa.
 //
 // @param	px		Coordenada X a comprobar.
 // @param	py		Coordenada Y a comprobar.
 // @param	game	Puntero a la estructura principal del juego.
-// @return			true si hay colisión o fuera de límites, false en caso contrario.
-
-bool touch(double px, double py, t_game *game)//esto creo que tampoco
+// @return			true si hay colisión o fuera de límites, false en caso
+	contrario.
+*/
+/*bool touch(double px, double py, t_game *game)//esto creo que tampoco
 {
 	int	x = px / BLOCK;
 	int	y = py / BLOCK;
@@ -100,30 +98,34 @@ bool touch(double px, double py, t_game *game)//esto creo que tampoco
 	if (game->map[y][x] == '1')
 		return true;
 	return false;
-}
+}*/
 
+/*
+// Calcula la distancia corregida entre dos puntos en relación al ángulo del
+	jugador.
 
-// Calcula la distancia corregida entre dos puntos en relación al ángulo del jugador.
-//
 //	@param	x1		Coordenada X del primer punto.
 //  @param	y1		Coordenada Y del primer punto.
 //  @param	x2		Coordenada X del segundo punto.
 //  @param	y2		Coordenada Y del segundo punto.
 //  @param	game	Puntero a la estructura principal del juego.
 //  @return			Distancia corregida.
-
-double	fixed_distance(double x1, double y1, double x2, double y2, t_game *game)//creo que esto ya no se usa
+*/
+/*double	fixed_distance(double x1, double y1, double x2,
+				double y2, t_game *game)
 {
 	double delta_x = x2 - x1;
 	double delta_y = y2 - y1;
 	double angle = atan2(delta_y, delta_x) - game->player.angle;
 	double fix_dist = distance(delta_x, delta_y) * cos(angle);
 	return fix_dist;
-}
-*/
+}*/
 
-//Punto de entrada principal del programa. Inicializa el juego y lanza el bucle principal de eventos.
-int	execute(t_cube* parse)
+/*
+//	Punto de entrada principal del programa. Inicializa el juego y lanza el bucle
+	principal de eventos.
+*/
+int	execute(t_cube *parse)
 {
 	t_game	game;
 

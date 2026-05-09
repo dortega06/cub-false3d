@@ -6,7 +6,7 @@
 /*   By: mcuenca- <mcuenca-@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/04 18:34:12 by mcuenca-          #+#    #+#             */
-/*   Updated: 2026/05/08 20:28:08 by mcuenca-         ###   ########.fr       */
+/*   Updated: 2026/05/09 17:09:08 by mcuenca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ t_bool	textures_are_valid(t_cube *root_nd, int *j)
 	if (!check_nomen(tmp))
 		return (ft_free_2ptr(tmp), FALSE);
 	else if (!xmp_check_loop(tmp, root_nd))
-		return (ft_free_2ptr(tmp), FALSE);	
+		return (ft_free_2ptr(tmp), FALSE);
 	root_nd->textu_path = only_path(tmp);
 	return (TRUE);
 }

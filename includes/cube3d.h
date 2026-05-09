@@ -6,7 +6,7 @@
 /*   By: mcuenca- <mcuenca-@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/28 14:22:28 by mcuenca-          #+#    #+#             */
-/*   Updated: 2026/05/08 21:15:16 by mcuenca-         ###   ########.fr       */
+/*   Updated: 2026/05/09 17:47:35 by mcuenca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ typedef enum e_textu
 	EA
 }	t_textu;
 
-
 typedef enum e_floor_cealing
 {
 	F = 0,
@@ -91,6 +90,7 @@ typedef struct s_color
 typedef struct s_vex
 {
 	char	type;
+	int		color;
 	int		x;
 	int		y;
 }	t_vex;
@@ -116,8 +116,6 @@ typedef struct s_cube
 	uint32_t	c;
 	t_vex		rsp;
 }	t_cube;
-
-//------------------------------AQUI
 
 // paths de las texturas
 typedef struct s_textures
@@ -149,26 +147,25 @@ typedef struct s_game
 	void		*wnd;
 	void		*img;
 
-	char 		*data;
+	char		*data;
 	int			bpp;
 	int			size_line;
-	int 		endian;
+	int			endian;
 	t_player	player;
 
-	char 		**map;
+	char		**map;
 	int			map_height;
 
 	int			last_facing;
-	// TEXTURAS
-	t_textures	textures;		// Paths de texturas
-	t_image		*texture_imgs;	// Array de imágenes cargadas
+
+	t_textures	textures;
+	t_image		*texture_imgs;
 	int			textures_loaded;
-	
+
 	uint32_t	color[2];
 }	t_game;
 
-/*******************************[ parser ft ]************************************/
-
+/********************************[ parser ft ]*********************************/
 t_bool	parse_cub(char *file, t_cube *root_nd);
 int		file_err(char *name_file, t_cube *root_nd);
 t_bool	check_mng(char *file, char *flag, t_cube *root_nd);
@@ -185,8 +182,7 @@ t_bool	only_one_rsp(char **map, t_vex *rsp);
 t_ff	floodfill(int x, int y, t_cube *root_nd, char **visited);
 void	clean_data_cube(t_cube *root_nd);
 
-/******************************[ excute ft ]************************************/
-
+/********************************[ excute ft ]*********************************/
 int		execute(t_cube *parse);
 void	init_player(t_player *player, t_vex *rsp);
 int		key_realese(int keycode, t_game *game);
@@ -195,25 +191,27 @@ void	move_player(t_player *player);
 //double	distance(double dx, double dy);
 void	clear_img(t_game *game);
 /*bool	touch(double px, double py, t_game *game);
-double	fixed_distance(double x1, double y1, double x2, double y2, t_game *game);*/
+double	fixed_distance(double x1, double y1,
+			double x2, double y2, t_game *game);*/
 int		close_game(t_game *game);
 
-/*******************************[ render ]*********************************/
+/**********************************[ render ]**********************************/
 int		draw_loop(t_game *game);
 //void	draw_map(t_game *game);
-void	draw_square(int x, int y, int size, int color, t_game *game);
+//void	draw_square(int x, int y, int size, int color, t_game *game);
 void	put_pixel(int x, int y, int color, t_game *game);
 void	draw_line(t_player *player, t_game *game, float start_x, int i);
 void	draw_ceiling_and_floor(t_game *game);
 
-/*******************************[ textures ]******************************/
+/*********************************[ textures ]*********************************/
 void	init_textures(t_game *game);
-void	load_texture(t_game *game, int index, char *path);
+int	load_texture(t_game *game, int index, char *path);
 int		get_texture_color(t_image *texture, int x, int y);
 void	free_textures(t_game *game);
 
-/*******************************[ calculate_texture ]*******************/
-int		get_texture_x(double ray_x, double ray_y, int texture_width, int facing);
+/*****************************[ calculate_texture ]****************************/
+int		get_texture_x(double ray_x, double ray_y,
+			int texture_width, int facing);
 int		get_texture_y(int screen_y, int wall_height, int texture_height);
 //t_image	*get_wall_texture(t_game *game);
 
