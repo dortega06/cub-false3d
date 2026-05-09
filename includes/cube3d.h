@@ -188,7 +188,7 @@ void	clean_data_cube(t_cube *root_nd);
 /******************************[ excute ft ]************************************/
 
 int		execute(t_cube *parse);
-void	init_player(t_player *player);
+void	init_player(t_player *player, t_vex *rsp);
 int		key_realese(int keycode, t_game *game);
 int		key_press(int keycode, t_game *game);
 void	move_player(t_player *player);

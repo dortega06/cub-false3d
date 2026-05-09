@@ -28,8 +28,8 @@ double	distance(double dx, double dy)// CReo que no se usa ya
 //
 //	@param	player	Puntero a la estructura del jugador a inicializar.
 //	@return			N/A
-
-void	init_player(t_player *player)
+/*
+void	init_player(t_player *player, t_vex *rsp)
 {
 	player->x = WIDTH / 2;
 	player->y = HEIGHT / 2;
@@ -40,6 +40,31 @@ void	init_player(t_player *player)
 	player->key_right = false;
 	player->left_rotate = false;
 	player->right_rotate = false;
+}*/
+
+// En moves.c
+void init_player(t_player *player, t_vex *rsp)
+{
+    // Convertir posición del mapa (celdas) a coordenadas del mundo (píxeles)
+    player->x = (rsp->x + 0.5) * BLOCK;
+    player->y = (rsp->y + 0.5) * BLOCK;
+    
+    // Establecer ángulo según orientación del jugador en el mapa
+    if (rsp->type == 'N')
+        player->angle = 3 * PI / 2;  // Mirando al norte
+    else if (rsp->type == 'S')
+        player->angle = PI / 2;      // Mirando al sur
+    else if (rsp->type == 'E')
+        player->angle = 0;           // Mirando al este
+    else if (rsp->type == 'W')
+        player->angle = PI;          // Mirando al oeste
+    
+    player->key_up = false;
+    player->key_down = false;
+    player->key_left = false;
+    player->key_right = false;
+    player->left_rotate = false;
+    player->right_rotate = false;
 }
 
 

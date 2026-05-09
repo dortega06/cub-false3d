@@ -6,7 +6,7 @@
 /*   By: dortega- <dortega-@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/18 17:31:32 by dortega-          #+#    #+#             */
-/*   Updated: 2026/05/08 21:20:09 by mcuenca-         ###   ########.fr       */
+/*   Updated: 2026/05/09 13:46:07 by dortega-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ void	draw_ceiling_and_floor(t_game *game)
 		x = 0;
 		while (x < WIDTH)
 		{
-			//put_pixel(x, y, game->color[C], game);
-			put_pixel(x, y, CEILING_COLOR, game);
+			put_pixel(x, y, game->color[C], game);
+		//	put_pixel(x, y, CEILING_COLOR, game);
 			x++;
 		}
 		y++;
@@ -61,8 +61,8 @@ void	draw_ceiling_and_floor(t_game *game)
 		x = 0;
 		while (x < WIDTH)
 		{
-			//put_pixel(x, y, game->color[F], game);
-			put_pixel(x, y, FLOOR_COLOR, game);
+			put_pixel(x, y, game->color[F], game);
+			//put_pixel(x, y, FLOOR_COLOR, game);
 			x++;
 		}
 		y++;
@@ -166,7 +166,7 @@ int draw_loop(t_game *game)
 	}
 	mlx_put_image_to_window(game->mlx, game->wnd, game->img, 0, 0);
 	(void)player;
-	printf("AQUI\n");
+//	printf("AQUI\n");
 	return (0);
 }
 

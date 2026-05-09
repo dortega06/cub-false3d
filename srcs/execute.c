@@ -6,7 +6,7 @@
 /*   By: dortega- <dortega-@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/30 17:08:31 by dortega-          #+#    #+#             */
-/*   Updated: 2026/05/08 20:54:34 by mcuenca-         ###   ########.fr       */
+/*   Updated: 2026/05/09 13:33:13 by dortega-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static void	load_all_textures(t_game *game, t_cube *parse)//podemos cambiarlo po
 
 void	init_game(t_game *game, t_cube *parse)
 {
-	init_player(&game->player);
+	init_player(&game->player, &parse->rsp);
 	init_textures(game);
 	game->color[F] = parse->f;
 	game->color[C] = parse->c;
