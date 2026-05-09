@@ -6,7 +6,7 @@
 /*   By: mcuenca- <mcuenca-@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/07 13:37:16 by mcuenca-          #+#    #+#             */
-/*   Updated: 2026/04/18 17:38:56 by mcuenca-         ###   ########.fr       */
+/*   Updated: 2026/05/09 18:38:55 by mcuenca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ t_bool	is_int_in_range(char nomen, char *buf, t_color *color)
 	if (!check_int_errors(nomen, "green", &color->g, &tmp))
 		return (FALSE);
 	tmp++;
-	if (!check_int_errors(nomen, "blue", &color->r, &tmp))
+	if (!check_int_errors(nomen, "blue", &color->b, &tmp))
 		return (FALSE);
 	if (tmp && *tmp != '\0')
 		return (ft_printf("Color must be the \'%c n,n,n\'.\n", nomen), FALSE);

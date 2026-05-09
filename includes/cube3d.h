@@ -6,7 +6,7 @@
 /*   By: mcuenca- <mcuenca-@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/28 14:22:28 by mcuenca-          #+#    #+#             */
-/*   Updated: 2026/05/09 17:47:35 by mcuenca-         ###   ########.fr       */
+/*   Updated: 2026/05/09 20:07:11 by mcuenca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,13 +118,32 @@ typedef struct s_cube
 }	t_cube;
 
 // paths de las texturas
-typedef struct s_textures
+/*typedef struct s_textures
 {
 	char	*north;
 	char	*south;
 	char	*west;
 	char	*east;
-}	t_textures;
+}	t_textures;*/
+
+typedef struct	t_draw_line
+{
+	double	pos_x;
+	double	pos_y;
+	double	dir_x;
+	double	dir_r;
+	int		map_x;
+	int		map_y;
+	double	delta_x;
+	double	delta_y;
+	int		step_x;
+	int		step_y;
+	double	side_x;
+	double	side_y;
+	int		side;
+	int		hit;
+	//Y MAS...!!
+}
 
 typedef struct s_player
 {
@@ -153,12 +172,13 @@ typedef struct s_game
 	int			endian;
 	t_player	player;
 
+	t_cube		*parse;
 	char		**map;
 	int			map_height;
 
 	int			last_facing;
 
-	t_textures	textures;
+	//t_textures	textures;
 	t_image		*texture_imgs;
 	int			textures_loaded;
 
@@ -205,7 +225,7 @@ void	draw_ceiling_and_floor(t_game *game);
 
 /*********************************[ textures ]*********************************/
 void	init_textures(t_game *game);
-int	load_texture(t_game *game, int index, char *path);
+int		load_texture(t_game *game, int index, char *path);
 int		get_texture_color(t_image *texture, int x, int y);
 void	free_textures(t_game *game);
 

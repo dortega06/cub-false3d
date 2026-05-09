@@ -6,7 +6,7 @@
 /*   By: mcuenca- <mcuenca-@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/23 17:16:05 by mcuenca-          #+#    #+#             */
-/*   Updated: 2026/05/09 16:53:32 by mcuenca-         ###   ########.fr       */
+/*   Updated: 2026/05/09 19:47:08 by mcuenca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,26 +39,18 @@ int	cube_instructions(void)
 	return (1);
 }
 
-void	init_data_parse(t_cube *root_nd)
-{
-	root_nd->fd = -1;
-	root_nd->file = NULL;
-}
-
 int	main(int argc, char **argv)
 {
 	t_cube	root_nd;
 
 	if (argc != 2)
 		return (cube_instructions());
-	ft_memset(&root_nd, 0, sizeof(t_cube));
-	init_data_parse(&root_nd);
+	root_nd.fd = -1;
+	root_nd.file = NULL;
 	if (!parse_cub(argv[1], &root_nd))
 		return (clean_data_cube(&root_nd), 1);
 	execute(&root_nd);/*Could something work wrong?
 						YES: put ft in if condition
 						NO: do nothing*/
-	clean_data_cube(&root_nd);
-	ft_printf("All works correct and clean :D!\n");
 	return (0);
 }

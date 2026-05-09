@@ -6,7 +6,7 @@
 /*   By: dortega- <dortega-@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/03 19:07:38 by dortega-          #+#    #+#             */
-/*   Updated: 2026/05/09 16:48:41 by mcuenca-         ###   ########.fr       */
+/*   Updated: 2026/05/09 19:49:42 by mcuenca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,18 @@
 //	Libera la memoria reservada para las rutas de las texturas de la estructura
 	game.
 */
-static void	free_texture_paths(t_game *game)
+/*static void	free_texture_paths(t_game *game)
 {
 	if (game->textures.north)
-		free(game->textures.north);
+		ft_free(game->textures.north);
 	if (game->textures.south)
-		free(game->textures.south);
+		ft_free(game->textures.south);
 	if (game->textures.west)
-		free(game->textures.west);
+		ft_free(game->textures.west);
 	if (game->textures.east)
-		free(game->textures.east);
-}
+		ft_free(game->textures.east);
+	
+}*/
 
 /*
 //	Libera la memoria de una textura individual destruyéndola con
@@ -75,9 +76,9 @@ static void	free_game_resources(t_game *game)
 		mlx_destroy_image(game->mlx, game->img);
 	if (game->wnd)
 		mlx_destroy_window(game->mlx, game->wnd);
-	if (game->map)
-		free(game->map);
-	free_texture_paths(game);
+	//if (game->map)
+	//	ft_free_2ptr(game->map);
+	//free_texture_paths(game);
 }
 
 /*
@@ -87,13 +88,17 @@ static void	free_game_resources(t_game *game)
 int	close_game(t_game *game)
 {
 	if (!game)
-		exit(0);/*LEAK?*/
+	{
+		clean_data_cube(game->parse);
+		exit(0);
+	}
 	free_game_resources(game);
 	if (game->mlx)
 	{
 		mlx_destroy_display(game->mlx);
 		free(game->mlx);
-	}
-	exit(0);/*LEAK?*/
+	}	
+	clean_data_cube(game->parse);
+	exit(0);
 	return (0);
 }
