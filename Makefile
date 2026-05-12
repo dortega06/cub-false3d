@@ -6,7 +6,7 @@
 #    By: mcuenca- <mcuenca-@student.42barcelon      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/03/23 16:46:01 by mcuenca-          #+#    #+#              #
-#    Updated: 2026/05/09 20:09:35 by mcuenca-         ###   ########.fr        #
+#    Updated: 2026/05/12 16:17:50 by mcuenca-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,6 +41,7 @@ SRCS= srcs/main.c \
 	  srcs/texture_utils.c \
 	  srcs/events.c \
 	  srcs/render.c \
+	  srcs/draw_line.c \
 	  srcs/calculate_texture.c \
 	  srcs/clean_data_cube.c
 

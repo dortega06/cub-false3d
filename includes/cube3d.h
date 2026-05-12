@@ -6,7 +6,7 @@
 /*   By: mcuenca- <mcuenca-@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/28 14:22:28 by mcuenca-          #+#    #+#             */
-/*   Updated: 2026/05/09 20:07:11 by mcuenca-         ###   ########.fr       */
+/*   Updated: 2026/05/12 15:48:43 by mcuenca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,13 @@ typedef enum e_floor_cealing
 	F = 0,
 	C
 }	t_floor_cealing;
+
+typedef enum e_xyz
+{
+	X = 0,
+	Y = 1,
+	Z = 2
+}	t_xyz;
 
 typedef enum e_ff
 {
@@ -126,12 +133,15 @@ typedef struct s_cube
 	char	*east;
 }	t_textures;*/
 
-typedef struct	t_draw_line
+typedef struct	s_draw_line
 {
+	float	start_x;
+	int		start_y;
+	int		end_y;
 	double	pos_x;
 	double	pos_y;
 	double	dir_x;
-	double	dir_r;
+	double	dir_y;
 	int		map_x;
 	int		map_y;
 	double	delta_x;
@@ -142,8 +152,21 @@ typedef struct	t_draw_line
 	double	side_y;
 	int		side;
 	int		hit;
-	//Y MAS...!!
-}
+	double	perp_dist;
+	int		height;
+	double	wall_x;
+	t_image	*tex;
+}	t_draw_line;
+
+typedef struct s_move_update
+{
+	double	speed;
+	double	angle_speed;
+	double	cos_angle;
+	double	sin_angle;
+	float	new_x;
+	float	new_y;
+}	t_move_update;
 
 typedef struct s_player
 {
@@ -207,7 +230,7 @@ int		execute(t_cube *parse);
 void	init_player(t_player *player, t_vex *rsp);
 int		key_realese(int keycode, t_game *game);
 int		key_press(int keycode, t_game *game);
-void	move_player(t_player *player);
+void	move_player(t_game *game);//(t_player *player);
 //double	distance(double dx, double dy);
 void	clear_img(t_game *game);
 /*bool	touch(double px, double py, t_game *game);

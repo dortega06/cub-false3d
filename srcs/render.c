@@ -6,7 +6,7 @@
 /*   By: dortega- <dortega-@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/18 17:31:32 by dortega-          #+#    #+#             */
-/*   Updated: 2026/05/09 20:09:43 by mcuenca-         ###   ########.fr       */
+/*   Updated: 2026/05/12 16:46:36 by mcuenca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,7 +163,7 @@ int	draw_loop(t_game *game)
 	angle_step = fov / (double)WIDTH;
 	ray_angle = player->angle - (fov / 2.0);
 	i = 0;
-	move_player(player);
+	move_player(game);
 	clear_img(game);
 	draw_ceiling_and_floor(game);
 	while (i < WIDTH)
@@ -174,136 +174,4 @@ int	draw_loop(t_game *game)
 	}
 	mlx_put_image_to_window(game->mlx, game->wnd, game->img, 0, 0);
 	return (0);
-}
-
-/*
-//	Lanza un rayo desde la posición del jugador en un ángulo determinado y
-	dibuja la columna de pared correspondiente.
-
-//	Utiliza el algoritmo DDA para avanzar en la cuadrícula del mapa hasta
-	encontrar un muro.
-//	Calcula la distancia perpendicular a la pared, determina la franja vertical
-	a dibujar, realiza el mapeo de textura y pinta la pared columna a columna con
-	la textura adecuada y orientación correcta.
-
-//	@param	player		Puntero a la estructura del jugador.
-//	@param	game		Puntero a la estructura principal del juego.
-//	@param	start_x		Ángulo del rayo en radianes.
-//	@param	i			Columna horizontal de la pantalla donde se pinta
-						la pared.
-//	@return				N/A
-*/
-void	draw_line(t_player *player, t_game *game, float start_x, int i)
-{
-	double	pos_x = player->x / BLOCK;
-	double	pos_y = player->y / BLOCK;
-	double	dir_x = cos(start_x);
-	double	dir_y = sin(start_x);
-	int		map_x = (int)pos_x;
-	int		map_y = (int)pos_y;
-	double	delta_x = fabs(1.0 / dir_x);
-	double	delta_y = fabs(1.0 / dir_y);
-	int		step_x;
-	int		step_y;
-	double	side_x;
-	double	side_y;
-	int		side;
-	int		hit;
-
-	if (dir_x < 0)
-	{
-		step_x = -1;
-		side_x = (pos_x - map_x) * delta_x;
-	}
-	else
-	{
-		step_x = 1;
-		side_x = (map_x + 1.0 - pos_x) * delta_x;
-	}
-	if (dir_y < 0)
-	{
-		step_y = -1;
-		side_y = (pos_y - map_y) * delta_y;
-	}
-	else
-	{
-		step_y = 1;
-		side_y = (map_y + 1.0 - pos_y) * delta_y;
-	}
-	hit = 0;
-	while (!hit)
-	{
-		if (side_x < side_y)
-		{
-			side_x += delta_x;
-			map_x += step_x;
-			side = 0;
-		}
-		else
-		{
-			side_y += delta_y;
-			map_y += step_y;
-			side = 1;
-		}
-		if (map_y >= 0 && map_y < game->map_height
-			&& game->map[map_y] && map_x >= 0
-			&& map_x < (int)strlen(game->map[map_y])
-			&& game->map[map_y][map_x] == '1')
-			hit = 1;
-	}
-	if (side == 0)
-	{
-		if (step_x > 0)
-			game->last_facing = 3;
-		else
-			game->last_facing = 2;
-	}
-	else
-	{
-		if (step_y > 0)
-			game->last_facing = 1;
-		else
-			game->last_facing = 0;
-	}
-
-	double	perp_dist;
-	if (side == 0)
-		perp_dist = (side_x - delta_x) * BLOCK;
-	else
-		perp_dist = (side_y - delta_y) * BLOCK;
-	if (perp_dist < 0.1)
-		perp_dist = 0.1;
-
-	int		height = (int)((BLOCK * HEIGHT) / perp_dist);
-	int		start_y = (HEIGHT - height) / 2;
-	int		end_y = start_y + height;
-	double	wall_x;
-	if (side == 0)
-		wall_x = pos_y + (perp_dist / BLOCK) * dir_y;
-	else
-		wall_x = pos_x + (perp_dist / BLOCK) * dir_x;
-	wall_x -= floor(wall_x);
-
-	t_image	*tex = &game->texture_imgs[game->last_facing];
-	if (!tex || !tex->addr || tex->width <= 0 || tex->height <= 0)
-		return ;
-
-	int		tex_x = (int)(wall_x * tex->width);
-	if (tex_x < 0)
-		tex_x = 0;
-	if (tex_x >= tex->width)
-		tex_x = tex->width - 1;
-	if (side == 0 && dir_x > 0)
-		tex_x = tex->width - tex_x - 1;
-	if (side == 1 && dir_y < 0)
-		tex_x = tex->width - tex_x - 1;
-
-	int		sy = start_y;
-	while (sy < end_y)
-	{
-		int tex_y = get_texture_y(sy, height, tex->height);
-		int color = get_texture_color(tex, tex_x, tex_y);
-		put_pixel(i, sy, color, game);
-		sy++;
-	}
 }

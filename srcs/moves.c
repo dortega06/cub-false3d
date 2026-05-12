@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   moves.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dortega- <dortega-@student.42barcelon      +#+  +:+       +#+        */
+/*   By: mcuenca- <mcuenca-@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/31 12:43:26 by dortega-          #+#    #+#             */
-/*   Updated: 2026/05/09 17:07:47 by mcuenca-         ###   ########.fr       */
+/*   Updated: 2026/05/12 16:41:57 by mcuenca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
+
 /*
 //	Calcula la distancia euclidiana entre dos puntos dados sus desplazamientos
 	en X e Y.
@@ -31,20 +32,6 @@
 //	@param	player	Puntero a la estructura del jugador a inicializar.
 //	@return			N/A
 */
-/*void	init_player(t_player *player, t_vex *rsp)
-{
-	player->x = WIDTH / 2;
-	player->y = HEIGHT / 2;
-	player->angle = PI / 2;
-	player->key_up = false;
-	player->key_down = false;
-	player->key_left = false;
-	player->key_right = false;
-	player->left_rotate = false;
-	player->right_rotate = false;
-}*/
-
-/*	En moves.c*/
 void	init_player(t_player *player, t_vex *rsp)
 {
 	/*Convertir posición del mapa (celdas) a coordenadas del mundo (píxeles).*/
@@ -132,69 +119,90 @@ int	key_press(int keycode, t_game *game)
 	para movimiento y rotación.
 */
 
-void	move_player2(t_player *player,
-			double cos_angle, double sin_angle, double speed)
+bool	collision(char **map, float new_x, float new_y)
 {
-	if (player->key_up)
-	{
-		player->x += cos_angle * speed;
-		player->y += sin_angle * speed;
-	}
-	if (player->key_down)
-	{
-		player->x -= cos_angle * speed;
-		player->y -= sin_angle * speed;
-	}
-	if (player->key_right)
-	{
-		player->x += cos(player->angle + PI / 2) * speed;
-		player->y += sin(player->angle + PI / 2) * speed;
-	}
-	if (player->key_left)
-	{
-		player->x += cos(player->angle - PI / 2) * speed;
-		player->y += sin(player->angle - PI / 2) * speed;
-	}
+	int	px;
+	int	py;
+
+	px = (int) new_x / BLOCK;
+	py = (int) new_y / BLOCK;
+
+	if (py < 0 || map[py] == NULL)
+		return (true);
+	if (px < 0 || px >= (int)ft_strlen(map[py]))
+		return (true);
+
+	if (map[py][px] == '1')
+		return (true);
+	return (false);
 }
 
-void	move_player(t_player *player)
+void	move_rotation(t_player *player, t_move_update *up_data)
 {
-	double	speed;
-	double	angle_speed;
-	double	cos_angle;
-	double	sin_angle;
-
-	speed = 2;
-	angle_speed = 0.03;
-	cos_angle = cos(player->angle);
-	sin_angle = sin(player->angle);
 	if (player->left_rotate)
-		player->angle -= angle_speed;
+		player->angle -= up_data->angle_speed;
 	if (player->right_rotate)
-		player->angle += angle_speed;
+		player->angle += up_data->angle_speed;
 	if (player->angle > 2 * PI)
 		player->angle = 0;
 	if (player->angle < 0)
 		player->angle = 2 * PI;
-	move_player2(player, cos_angle, sin_angle, speed);
-	/*if (player->key_up)
-	{
-		player->x += cos_angle * speed;
-		player->y += sin_angle * speed;
-	}
-	if (player->key_down)
-	{
-		player->x -= cos_angle * speed;
-		player->y -= sin_angle * speed;
-	}
+}
+
+void	move_position_right_left(t_player *player, t_move_update *up_data)
+{
 	if (player->key_right)
 	{
-		player->x += cos(player->angle + PI / 2) * speed;
-		player->y += sin(player->angle + PI / 2) * speed;
+		up_data->new_x += cos(player->angle + PI / 2) * up_data->speed;
+		up_data->new_y += sin(player->angle + PI / 2) * up_data->speed;
 	}
 	if (player->key_left)
 	{
-		player->x += cos(player->angle - PI / 2) * speed;
-		player->y += sin(player->angle - PI / 2) * speed;
-	}*/
+		up_data->new_x += cos(player->angle - PI / 2) * up_data->speed;
+		up_data->new_y += sin(player->angle - PI / 2) * up_data->speed;
+	}
+}
+
+void	move_position_up_down(t_player *player, t_move_update *up_data)
+{
+	if (player->key_up)
+	{
+		up_data->new_x += up_data->cos_angle * up_data->speed;
+		up_data->new_y += up_data->sin_angle * up_data->speed;
+	}
+	if (player->key_down)
+	{
+		up_data->new_x -= up_data->cos_angle * up_data->speed;
+		up_data->new_y -= up_data->sin_angle * up_data->speed;
+	}
+}
+
+void	move_position(t_player *player, t_move_update *up_data, char **map)
+{
+	if (player->key_up || player->key_down)
+		move_position_up_down(player, up_data);
+	if (player->key_right || player->key_left)
+		move_position_right_left(player, up_data);
+
+	if (!collision(map, up_data->new_x, player->y))
+		player->x = up_data->new_x;
+	if (!collision(map, player->x, up_data->new_y))
+		player->y = up_data->new_y;
+}
+
+void	move_player(t_game *game)
+{
+	t_move_update	up_data;
+	t_player		*player;
+
+	player = &game->player;
+	up_data.speed = 2;
+	up_data.angle_speed = 0.03;
+	up_data.cos_angle = cos(player->angle);
+	up_data.sin_angle = sin(player->angle);
+
+	up_data.new_x = player->x;
+	up_data.new_y = player->y;
+	move_rotation(player, &up_data);
+	move_position(player, &up_data, game->map);
 }
