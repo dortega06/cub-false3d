@@ -6,7 +6,7 @@
 /*   By: mcuenca- <mcuenca-@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/31 12:43:26 by dortega-          #+#    #+#             */
-/*   Updated: 2026/05/13 15:10:22 by dortega-         ###   ########.fr       */
+/*   Updated: 2026/05/13 16:21:38 by mcuenca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,8 +134,9 @@ static bool	collision_point(char **map, float px, float py)
 
 bool	collision(char **map, float new_x, float new_y)
 {
-	float	margin = 2.0;
+	float	margin;
 
+	margin = 2.0;
 	if (collision_point(map, new_x - margin, new_y - margin))
 		return (true);
 	if (collision_point(map, new_x + margin, new_y - margin))

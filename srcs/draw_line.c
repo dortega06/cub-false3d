@@ -6,7 +6,7 @@
 /*   By: mcuenca- <mcuenca-@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/09 19:52:00 by mcuenca-          #+#    #+#             */
-/*   Updated: 2026/05/13 16:06:45 by dortega-         ###   ########.fr       */
+/*   Updated: 2026/05/13 16:39:55 by mcuenca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,33 +46,8 @@ void	wall_hit_x_pct(t_draw_line *draw)
 		draw->wall_x = draw->pos_x + (draw->perp_dist / BLOCK) * draw->dir_x;
 	draw->wall_x -= floor(draw->wall_x);
 }
-/*
-void wall_hit_x_pct(t_draw_line *draw)
-{
-    double hit_point;
-    
-    if (draw->side == 0) // Impacto en pared vertical (x constante)
-    {
-        // Calcula el punto Y exacto donde golpea el rayo
-        hit_point = draw->pos_y + draw->perp_dist * draw->dir_y;
-    }
-    else // Impacto en pared horizontal (y constante)
-    {
-        // Calcula el punto X exacto donde golpea el rayo
-        hit_point = draw->pos_x + draw->perp_dist * draw->dir_x;
-    }
-    
-    // Obtén solo la parte fraccionaria (0.0 a 1.0)
-    draw->wall_x = hit_point - floor(hit_point);
-    
-    // Corrección para errores de precisión en bordes
-    if (draw->wall_x < 0.0)
-        draw->wall_x = 0.0;
-    if (draw->wall_x >= 1.0)
-        draw->wall_x = 0.999999;
-}*/
 
-void	perpendicular_wall_distance(t_draw_line *draw)
+void	perpendicular_wall_distance(t_player *player, t_draw_line *draw)
 {
 	if (draw->side == 0)
 		draw->perp_dist = (draw->side_x - draw->delta_x) * BLOCK;
@@ -80,6 +55,14 @@ void	perpendicular_wall_distance(t_draw_line *draw)
 		draw->perp_dist = (draw->side_y - draw->delta_y) * BLOCK;
 	if (draw->perp_dist < 0.01)
 		draw->perp_dist = 0.01;
+	draw->correct_dist = draw->perp_dist * cos(draw->start_x - player->angle);
+	if (draw->correct_dist < 0.01)
+		draw->correct_dist = 0.01;
+	draw->height = (int)((BLOCK * HEIGHT) / draw->correct_dist);
+	if (draw->height > HEIGHT * 2)
+		draw->height = HEIGHT * 2;
+	draw->start_y = (HEIGHT - draw->height) / 2;
+	draw->end_y = draw->start_y + draw->height;
 }
 
 void	distance_to_next_grid(t_draw_line *draw)
@@ -139,21 +122,9 @@ void	draw_line(t_player *player, t_game *game, float start_x, int i)
 	draw.delta_y = fabs(1.0 / draw.dir_y);
 	distance_to_next_grid(&draw);
 	raycast(game, &draw);
-	perpendicular_wall_distance(&draw);
-	double correct_dist = draw.perp_dist * cos(draw.start_x - player->angle);
-	if (correct_dist < 0.01)
-    		correct_dist = 0.01;
-	draw.height = (int)((BLOCK * HEIGHT) / correct_dist);
-	//draw.height = (int)((BLOCK * HEIGHT) / draw.perp_dist);
-	
-	if (draw.height > HEIGHT * 2)
-    	draw.height = HEIGHT * 2;
-
-	draw.start_y = (HEIGHT - draw.height) / 2;
-	draw.end_y = draw.start_y + draw.height;
+	perpendicular_wall_distance(player, &draw);
 	wall_hit_x_pct(&draw);
 	draw.tex = &game->texture_imgs[game->last_facing];
-	
 	if (!draw.tex || !draw.tex->addr
 		|| draw.tex->width <= 0 || draw.tex->height <= 0)
 		return ;

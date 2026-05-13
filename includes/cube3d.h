@@ -6,7 +6,7 @@
 /*   By: mcuenca- <mcuenca-@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/28 14:22:28 by mcuenca-          #+#    #+#             */
-/*   Updated: 2026/05/13 14:24:49 by dortega-         ###   ########.fr       */
+/*   Updated: 2026/05/13 16:31:38 by mcuenca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,6 +153,7 @@ typedef struct s_draw_line
 	int		side;
 	int		hit;
 	double	perp_dist;
+	double	correct_dist;
 	int		height;
 	double	wall_x;
 	t_image	*tex;
