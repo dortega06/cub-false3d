@@ -159,6 +159,13 @@ typedef struct s_draw_line
 	t_image	*tex;
 }	t_draw_line;
 
+typedef struct s_render_data
+{
+	int		tex_x;
+	double	step;
+	double	tex_pos;
+}	t_render_data;
+
 typedef struct s_move_update
 {
 	double	speed;
@@ -267,4 +274,5 @@ int		draw_loop(t_game *game);
 void	move_player(t_game *game);
 bool	collision(char **map, float new_x, float new_y);
 void	draw_line(t_player *player, t_game *game, float start_x, int i);
+void	wall_hit_x_pct(t_draw_line *draw);
 #endif

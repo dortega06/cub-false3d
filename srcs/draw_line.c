@@ -6,63 +6,97 @@
 /*   By: mcuenca- <mcuenca-@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/09 19:52:00 by mcuenca-          #+#    #+#             */
-/*   Updated: 2026/05/13 16:39:55 by mcuenca-         ###   ########.fr       */
+/*   Updated: 2026/05/13 17:44:38 by dortega-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cube3d.h"
-
+/*
 void	render_column(t_game *game, t_draw_line *draw, int i)
 {
 	int		tex_x;
 	int		tex_y;
-	int		sy;
+	int		y;
 	int		color;
+	double	step;
+	double	tex_pos;
 
-	tex_x = (int)(draw->wall_x * draw->tex->width);
-	if (tex_x < 0)
-		tex_x = 0;
-	if (tex_x >= draw->tex->width)
-		tex_x = draw->tex->width - 1;
-	if (draw->side == 0 && draw->dir_x < 0)
+	tex_x = (int)(draw->wall_x * (double)draw->tex->width);
+	if (draw->side == 0 && draw->dir_x > 0)
 		tex_x = draw->tex->width - tex_x - 1;
-	if (draw->side == 1 && draw->dir_y > 0)
+	if (draw->side == 1 && draw->dir_y < 0)
 		tex_x = draw->tex->width - tex_x - 1;
-	sy = draw->start_y;
-	while (sy < draw->end_y)
+	step = 1.0 * draw->tex->height / draw->height;
+	tex_pos = (draw->start_y - HEIGHT / 2
+			+ draw->height / 2) * step;
+	y = draw->start_y;
+	while (y < draw->end_y)
 	{
-		tex_y = get_texture_y(sy, draw->height, draw->tex->height);
+		tex_y = (int)tex_pos;
+		if (tex_y < 0)
+			tex_y = 0;
+		if (tex_y >= draw->tex->height)
+			tex_y = draw->tex->height - 1;
+		tex_pos += step;
 		color = get_texture_color(draw->tex, tex_x, tex_y);
-		put_pixel(i, sy, color, game);
-		sy++;
+		put_pixel(i, y, color, game);
+		y++;
 	}
+}*/
+
+void	render_column_calc(t_draw_line *dw, int *tx_x, double *sp, double *tx_p)
+{
+	*tx_x = (int)(dw->wall_x * (double)dw->tex->width);
+	if (dw->side == 0 && dw->dir_x > 0)
+		*tx_x = dw->tex->width - *tx_x - 1;
+	if (dw->side == 1 && dw->dir_y < 0)
+		*tx_x = dw->tex->width - *tx_x - 1;
+	*sp = 1.0 * dw->tex->height / dw->height;
+	*tx_p = (dw->start_y - HEIGHT / 2 + dw->height / 2) * (*sp);
 }
 
-void	wall_hit_x_pct(t_draw_line *draw)
+void	render_column(t_game *game, t_draw_line *draw, int i)
 {
-	if (draw->side == 0)
-		draw->wall_x = draw->pos_y + (draw->perp_dist / BLOCK) * draw->dir_y;
-	else
-		draw->wall_x = draw->pos_x + (draw->perp_dist / BLOCK) * draw->dir_x;
-	draw->wall_x -= floor(draw->wall_x);
+	int		tex_x;
+	double	step;
+	double	tex_pos;
+	int		y;
+	int		color;
+
+	render_column_calc(draw, &tex_x, &step, &tex_pos);
+	y = draw->start_y;
+	while (y < draw->end_y)
+	{
+		color = get_texture_color(draw->tex, tex_x, (int)tex_pos);
+		put_pixel(i, y, color, game);
+		tex_pos += step;
+		y++;
+	}
 }
 
 void	perpendicular_wall_distance(t_player *player, t_draw_line *draw)
 {
+	double	angle_diff;
+
 	if (draw->side == 0)
-		draw->perp_dist = (draw->side_x - draw->delta_x) * BLOCK;
+		draw->perp_dist = (draw->map_x - draw->pos_x
+				+ (1 - draw->step_x) / 2.0) / draw->dir_x;
 	else
-		draw->perp_dist = (draw->side_y - draw->delta_y) * BLOCK;
+		draw->perp_dist = (draw->map_y - draw->pos_y
+				+ (1 - draw->step_y) / 2.0) / draw->dir_y;
 	if (draw->perp_dist < 0.01)
 		draw->perp_dist = 0.01;
-	draw->correct_dist = draw->perp_dist * cos(draw->start_x - player->angle);
+	angle_diff = draw->start_x - player->angle;
+	draw->correct_dist = draw->perp_dist * cos(angle_diff);
 	if (draw->correct_dist < 0.01)
 		draw->correct_dist = 0.01;
-	draw->height = (int)((BLOCK * HEIGHT) / draw->correct_dist);
-	if (draw->height > HEIGHT * 2)
-		draw->height = HEIGHT * 2;
-	draw->start_y = (HEIGHT - draw->height) / 2;
-	draw->end_y = draw->start_y + draw->height;
+	draw->height = (int)(HEIGHT / draw->correct_dist);
+	draw->start_y = -draw->height / 2 + HEIGHT / 2;
+	if (draw->start_y < 0)
+		draw->start_y = 0;
+	draw->end_y = draw->height / 2 + HEIGHT / 2;
+	if (draw->end_y >= HEIGHT)
+		draw->end_y = HEIGHT - 1;
 }
 
 void	distance_to_next_grid(t_draw_line *draw)

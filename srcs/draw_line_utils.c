@@ -59,3 +59,12 @@ void	raycast(t_game *game, t_draw_line *draw)
 	raycast_colision(game, draw);
 	raycast_which_wall(game, draw);
 }
+
+void	wall_hit_x_pct(t_draw_line *draw)
+{
+	if (draw->side == 0)
+		draw->wall_x = draw->pos_y + draw->perp_dist * draw->dir_y;
+	else
+		draw->wall_x = draw->pos_x + draw->perp_dist * draw->dir_x;
+	draw->wall_x -= floor(draw->wall_x);
+}
