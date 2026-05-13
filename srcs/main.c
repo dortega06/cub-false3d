@@ -49,8 +49,6 @@ int	main(int argc, char **argv)
 	root_nd.file = NULL;
 	if (!parse_cub(argv[1], &root_nd))
 		return (clean_data_cube(&root_nd), 1);
-	execute(&root_nd);/*Could something work wrong?
-						YES: put ft in if condition
-						NO: do nothing*/
+	execute(&root_nd);
 	return (0);
 }

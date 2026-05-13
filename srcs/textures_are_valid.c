@@ -68,3 +68,24 @@ t_bool	textures_are_valid(t_cube *root_nd, int *j)
 	root_nd->textu_path = only_path(tmp);
 	return (TRUE);
 }
+
+/*
+//	Obtiene el color de un píxel concreto en la textura.
+//	@param	texture	Puntero a la textura de la que se obtiene el color.
+//	@param	x		Coordenada X en la textura.
+//	@param	y		Coordenada Y en la textura.
+//	@return	Color en formato unsigned int.
+*/
+int	get_texture_color(t_image *texture, int x, int y)
+{
+	unsigned char	*ptr;
+	int				offset;
+
+	if (!texture || !texture->addr)
+		return (0);
+	x = clamp_coord(x, texture->width);
+	y = clamp_coord(y, texture->height);
+	offset = y * texture->size_line + x * (texture->bpp / 8);
+	ptr = (unsigned char *)texture->addr + offset;
+	return (*(unsigned int *)ptr);
+}

@@ -6,7 +6,7 @@
 /*   By: mcuenca- <mcuenca-@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/28 14:22:28 by mcuenca-          #+#    #+#             */
-/*   Updated: 2026/05/12 15:48:43 by mcuenca-         ###   ########.fr       */
+/*   Updated: 2026/05/13 14:24:49 by dortega-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,7 @@ typedef struct s_cube
 	char	*east;
 }	t_textures;*/
 
-typedef struct	s_draw_line
+typedef struct s_draw_line
 {
 	float	start_x;
 	int		start_y;
@@ -251,6 +251,7 @@ void	init_textures(t_game *game);
 int		load_texture(t_game *game, int index, char *path);
 int		get_texture_color(t_image *texture, int x, int y);
 void	free_textures(t_game *game);
+int		clamp_coord(int coord, int max);
 
 /*****************************[ calculate_texture ]****************************/
 int		get_texture_x(double ray_x, double ray_y,
@@ -258,4 +259,11 @@ int		get_texture_x(double ray_x, double ray_y,
 int		get_texture_y(int screen_y, int wall_height, int texture_height);
 //t_image	*get_wall_texture(t_game *game);
 
+void	raycast(t_game *game, t_draw_line *draw);
+void	raycast_colision(t_game *game, t_draw_line *draw);
+void	raycast_which_wall(t_game *game, t_draw_line *draw);
+int		draw_loop(t_game *game);
+void	move_player(t_game *game);
+bool	collision(char **map, float new_x, float new_y);
+void	draw_line(t_player *player, t_game *game, float start_x, int i);
 #endif

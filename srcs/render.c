@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube3d.h"
+#include "../includes/cube3d.h"
 
 /*
 //	Dibuja un píxel en la posición (x, y) de la imagen, con el color indicado.

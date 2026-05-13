@@ -43,7 +43,10 @@ SRCS= srcs/main.c \
 	  srcs/render.c \
 	  srcs/draw_line.c \
 	  srcs/calculate_texture.c \
-	  srcs/clean_data_cube.c
+	  srcs/clean_data_cube.c \
+	  srcs/draw_line_utils.c \
+	  srcs/moves_utils.c 
+	  
 
 OBJS_DIR= objs
 OBJS= $(SRCS:$(SRCS_DIR)/%.c=$(OBJS_DIR)/%.o)

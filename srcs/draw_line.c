@@ -6,11 +6,11 @@
 /*   By: mcuenca- <mcuenca-@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/09 19:52:00 by mcuenca-          #+#    #+#             */
-/*   Updated: 2026/05/13 13:41:13 by dortega-         ###   ########.fr       */
+/*   Updated: 2026/05/13 14:15:01 by dortega-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube3d.h"
+#include "../includes/cube3d.h"
 
 void	render_column(t_game *game, t_draw_line *draw, int i)
 {
@@ -55,54 +55,6 @@ void	perpendicular_wall_distance(t_draw_line *draw)
 		draw->perp_dist = (draw->side_y - draw->delta_y) * BLOCK;
 	if (draw->perp_dist < 0.1)
 		draw->perp_dist = 0.1;
-}
-
-void	raycast_which_wall(t_game *game, t_draw_line *draw)
-{
-	if (draw->side == 0)
-	{
-		if (draw->step_x > 0)
-			game->last_facing = 3;
-		else
-			game->last_facing = 2;
-	}
-	else
-	{
-		if (draw->step_y > 0)
-			game->last_facing = 1;
-		else
-			game->last_facing = 0;
-	}
-}
-
-void	raycast_colision(t_game *game, t_draw_line *draw)
-{
-	while (!draw->hit)
-	{
-		if (draw->side_x < draw->side_y)
-		{
-			draw->side_x += draw->delta_x;
-			draw->map_x += draw->step_x;
-			draw->side = 0;
-		}
-		else
-		{
-			draw->side_y += draw->delta_y;
-			draw->map_y += draw->step_y;
-			draw->side = 1;
-		}
-		if (draw->map_y >= 0 && draw->map_y < game->map_height
-			&& game->map[draw->map_y] && draw->map_x >= 0
-			&& draw->map_x < (int)ft_strlen(game->map[draw->map_y])
-			&& game->map[draw->map_y][draw->map_x] == '1')
-			draw->hit = 1;
-	}
-}
-
-void	raycast(t_game *game, t_draw_line *draw)
-{
-	raycast_colision(game, draw);
-	raycast_which_wall(game, draw);
 }
 
 void	distance_to_next_grid(t_draw_line *draw)
@@ -160,16 +112,16 @@ void	draw_line(t_player *player, t_game *game, float start_x, int i)
 	draw.map_y = (int)draw.pos_y;
 	draw.delta_x = fabs(1.0 / draw.dir_x);
 	draw.delta_y = fabs(1.0 / draw.dir_y);
-	distance_to_next_grid(&draw);/**/
+	distance_to_next_grid(&draw);
 	raycast(game, &draw);
 	perpendicular_wall_distance(&draw);
-	draw.height = (int)((BLOCK * HEIGHT) / draw.perp_dist);/**/
+	draw.height = (int)((BLOCK * HEIGHT) / draw.perp_dist);
 	draw.start_y = (HEIGHT - draw.height) / 2;
 	draw.end_y = draw.start_y + draw.height;
-	wall_hit_x_pct(&draw);/**/
+	wall_hit_x_pct(&draw);
 	draw.tex = &game->texture_imgs[game->last_facing];
 	if (!draw.tex || !draw.tex->addr
 		|| draw.tex->width <= 0 || draw.tex->height <= 0)
 		return ;
-	render_column(game, &draw, i);/**/
+	render_column(game, &draw, i);
 }

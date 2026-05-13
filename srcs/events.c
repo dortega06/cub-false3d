@@ -13,26 +13,8 @@
 #include "cube3d.h"
 
 /*
-//	Libera la memoria reservada para las rutas de las texturas de la estructura
-	game.
-*/
-/*static void	free_texture_paths(t_game *game)
-{
-	if (game->textures.north)
-		ft_free(game->textures.north);
-	if (game->textures.south)
-		ft_free(game->textures.south);
-	if (game->textures.west)
-		ft_free(game->textures.west);
-	if (game->textures.east)
-		ft_free(game->textures.east);
-	
-}*/
-
-/*
 //	Libera la memoria de una textura individual destruyéndola con
 	mlx_destroy_image.
-
 //	@param	game	Puntero a la estructura principal del juego.
 //	@param	index	Índice de la textura a liberar.
 //	@return	N/A
@@ -47,7 +29,6 @@ static void	destroy_single_texture(t_game *game, int index)
 
 /*
 //	Libera toda la memoria reservada para las texturas y resetea punteros.
-
 //	@param	game	Puntero a la estructura principal del juego.
 //	@return	N/A
 */
@@ -76,9 +57,6 @@ static void	free_game_resources(t_game *game)
 		mlx_destroy_image(game->mlx, game->img);
 	if (game->wnd)
 		mlx_destroy_window(game->mlx, game->wnd);
-	//if (game->map)
-	//	ft_free_2ptr(game->map);
-	//free_texture_paths(game);
 }
 
 /*
@@ -97,7 +75,7 @@ int	close_game(t_game *game)
 	{
 		mlx_destroy_display(game->mlx);
 		free(game->mlx);
-	}	
+	}
 	clean_data_cube(game->parse);
 	exit(0);
 	return (0);

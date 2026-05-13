@@ -27,9 +27,9 @@ int	get_texture_x(double ray_x, double ray_y, int texture_width, int facing)
 	double	wall_pos;
 	int		tex_x;
 
-	if (facing == 0 || facing == 1) /*NORTH o SOUTH*/
+	if (facing == 0 || facing == 1)
 		wall_pos = ray_x - (int)ray_x;
-	else/*WEST o EAST*/
+	else
 		wall_pos = ray_y - (int)ray_y;
 	if (wall_pos < 0)
 		wall_pos += 1.0;
