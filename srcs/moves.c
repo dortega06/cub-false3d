@@ -6,7 +6,7 @@
 /*   By: mcuenca- <mcuenca-@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/31 12:43:26 by dortega-          #+#    #+#             */
-/*   Updated: 2026/05/12 16:41:57 by mcuenca-         ###   ########.fr       */
+/*   Updated: 2026/05/13 15:10:22 by dortega-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,19 +116,33 @@ int	key_press(int keycode, t_game *game)
 //	Actualiza la posición y el ángulo del jugador según las teclas presionadas
 	para movimiento y rotación.
 */
+static bool	collision_point(char **map, float px, float py)
+{
+	int	x;
+	int	y;
+
+	x = (int)(px / BLOCK);
+	y = (int)(py / BLOCK);
+	if (py < 0 || map[y] == NULL)
+		return (true);
+	if (px < 0 || x >= (int)ft_strlen(map[y]))
+		return (true);
+	if (map[y][x] == '1')
+		return (true);
+	return (false);
+}
 
 bool	collision(char **map, float new_x, float new_y)
 {
-	int	px;
-	int	py;
+	float	margin = 2.0;
 
-	px = (int) new_x / BLOCK;
-	py = (int) new_y / BLOCK;
-	if (py < 0 || map[py] == NULL)
+	if (collision_point(map, new_x - margin, new_y - margin))
 		return (true);
-	if (px < 0 || px >= (int)ft_strlen(map[py]))
+	if (collision_point(map, new_x + margin, new_y - margin))
 		return (true);
-	if (map[py][px] == '1')
+	if (collision_point(map, new_x - margin, new_y + margin))
+		return (true);
+	if (collision_point(map, new_x + margin, new_y + margin))
 		return (true);
 	return (false);
 }
