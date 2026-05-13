@@ -6,7 +6,7 @@
 /*   By: mcuenca- <mcuenca-@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/09 19:52:00 by mcuenca-          #+#    #+#             */
-/*   Updated: 2026/05/12 16:46:52 by mcuenca-         ###   ########.fr       */
+/*   Updated: 2026/05/13 13:41:13 by dortega-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ void	render_column(t_game *game, t_draw_line *draw, int i)
 		tex_x = 0;
 	if (tex_x >= draw->tex->width)
 		tex_x = draw->tex->width - 1;
-	if (draw->side == 0 && draw->dir_x > 0)
+	if (draw->side == 0 && draw->dir_x < 0)
 		tex_x = draw->tex->width - tex_x - 1;
-	if (draw->side == 1 && draw->dir_y < 0)
+	if (draw->side == 1 && draw->dir_y > 0)
 		tex_x = draw->tex->width - tex_x - 1;
 	sy = draw->start_y;
 	while (sy < draw->end_y)
