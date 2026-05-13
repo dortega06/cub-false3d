@@ -6,7 +6,7 @@
 /*   By: mcuenca- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 12:46:49 by mcuenca-          #+#    #+#             */
-/*   Updated: 2026/04/17 13:40:34 by mcuenca-         ###   ########.fr       */
+/*   Updated: 2026/05/13 13:45:13 by mcuenca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ typedef enum e_bool
 
 typedef enum e_mem
 {
-	 LACK = -1,
-	 FIT = 0,
-	 TOO = 1
+	LACK = -1,
+	FIT = 0,
+	TOO = 1
 }	t_mem;
 
 int		ft_isalpha(int c);

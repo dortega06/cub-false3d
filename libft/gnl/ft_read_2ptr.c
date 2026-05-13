@@ -6,7 +6,7 @@
 /*   By: mcuenca- <mcuenca-@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/31 17:53:46 by mcuenca-          #+#    #+#             */
-/*   Updated: 2026/04/08 12:43:55 by mcuenca-         ###   ########.fr       */
+/*   Updated: 2026/05/13 13:47:45 by mcuenca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void	ft_read_2ptr(char **content, char c)
 {
 	int	i;
 
-	//con salto de linea, sin salto de linea
 	i = 0;
 	if (!content)
 		return ;
