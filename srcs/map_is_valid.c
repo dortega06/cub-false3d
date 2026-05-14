@@ -6,7 +6,7 @@
 /*   By: mcuenca- <mcuenca-@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/07 13:25:14 by mcuenca-          #+#    #+#             */
-/*   Updated: 2026/04/18 17:37:26 by mcuenca-         ###   ########.fr       */
+/*   Updated: 2026/05/13 18:21:46 by mcuenca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,19 +93,19 @@ t_bool	map_is_valid(t_cube *root_nd, int *j)
 	char	**visited;
 
 	if (!there_is_map(root_nd, j))
-		return (ft_printf("There is not map.\n"), FALSE);
+		return (ft_printf("Error: There is not map.\n"), FALSE);
 	top_left_corner = &root_nd->file[*j];
 	root_nd->rsp = rsp((const char **)top_left_corner, &root_nd->rsp);
 	if (root_nd->rsp.y == -1 || root_nd->rsp.x == -1)
-		return (ft_printf("There is not player box.\n"), FALSE);
+		return (ft_printf("Error: There is not player box.\n"), FALSE);
 	else if (!only_one_rsp(top_left_corner, &root_nd->rsp))
-		return (ft_printf("There are many player box.\n"), FALSE);
+		return (ft_printf("Error: There are many player box.\n"), FALSE);
 	root_nd->map = top_left_corner;
 	visited = dup_map(root_nd->map);
 	if (!visited)
 		return (FALSE);
 	if (!map_lakes_islands_are_closed(root_nd, visited))
-		return (ft_printf("Something is wrong with map.\n"),
+		return (ft_printf("Error: Something is wrong with map.\n"),
 			ft_free_2ptr(visited), FALSE);
 	ft_free_2ptr(visited);
 	return (TRUE);

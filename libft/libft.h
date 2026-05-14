@@ -6,7 +6,7 @@
 /*   By: mcuenca- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 12:46:49 by mcuenca-          #+#    #+#             */
-/*   Updated: 2026/05/13 13:45:13 by mcuenca-         ###   ########.fr       */
+/*   Updated: 2026/05/13 20:24:01 by mcuenca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_strtrim(char const *s1, char const *set);
 char	**ft_split(char const *s, char c);
 char	*ft_itoa(int n);
+void	ft_swap(char **a, char **b);
 int		ft_countwords(const char *s, char c);
 int		ft_countnum(long int n);
 int		ft_countnumhexa(long long int n);

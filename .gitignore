@@ -3,7 +3,7 @@ en.subject.cube3d.pdf
 *.swp
 *.obj
 objs/
-cube3d
+cub3D
 test/
 *.a
 libft/libft.a

@@ -6,7 +6,7 @@
 #    By: mcuenca- <mcuenca-@student.42barcelon      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/03/23 16:46:01 by mcuenca-          #+#    #+#              #
-#    Updated: 2026/05/13 17:41:06 by dortega-         ###   ########.fr        #
+#    Updated: 2026/05/14 14:05:27 by mcuenca-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,9 @@ SRCS= srcs/main.c \
 	  srcs/content_is_valid.c \
 	  srcs/extract_lines.c \
 	  srcs/textures_are_valid.c \
+	  srcs/texture_nomen.c \
 	  srcs/colors_are_valid.c \
+	  srcs/color_nomen.c \
 	  srcs/map_is_valid.c \
 	  srcs/rsp.c \
 	  srcs/floodfill.c \
@@ -41,7 +43,6 @@ SRCS= srcs/main.c \
 	  srcs/texture_utils.c \
 	  srcs/events.c \
 	  srcs/render.c \
-	  srcs/render_utils.c \
 	  srcs/draw_line.c \
 	  srcs/calculate_texture.c \
 	  srcs/clean_data_cube.c \
@@ -52,11 +53,11 @@ SRCS= srcs/main.c \
 OBJS_DIR= objs
 OBJS= $(SRCS:$(SRCS_DIR)/%.c=$(OBJS_DIR)/%.o)
 
-NAME= cube3d
+NAME= cub3D
 
 all: libs $(NAME)
 
-libs: $(LIBFT) $(MLX)
+libs: $(MLX) $(LIBFT)
 
 $(LIBFT): $(LIBFT_DIR)/Makefile $(LIBFT_DIR)/libft.h $(LIBFT_DIR)/libftprintf.h $(LIBFT_DIR)/gnl.h
 	$(MAKE) -sC $(LIBFT_DIR)

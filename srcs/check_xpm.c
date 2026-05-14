@@ -6,7 +6,7 @@
 /*   By: mcuenca- <mcuenca-@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/04 20:40:33 by mcuenca-          #+#    #+#             */
-/*   Updated: 2026/04/15 17:11:53 by mcuenca-         ###   ########.fr       */
+/*   Updated: 2026/05/13 18:16:31 by mcuenca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ t_bool	check_xpm(char *file, t_cube *root_nd)
 
 	full_len = ft_strlen(file);
 	if (ft_strncmp(&file[full_len - 4], ".xpm", 4) != 0)
-		return (ft_printf("Wrong extension for texture.\n"), FALSE);
+		return (ft_printf("Error: Wrong extension for texture.\n"), FALSE);
 	fd = file_err(file, root_nd);
 	if (fd < 0)
 		return (FALSE);

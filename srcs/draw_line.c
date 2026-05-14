@@ -6,7 +6,7 @@
 /*   By: mcuenca- <mcuenca-@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/09 19:52:00 by mcuenca-          #+#    #+#             */
-/*   Updated: 2026/05/13 17:44:38 by dortega-         ###   ########.fr       */
+/*   Updated: 2026/05/13 20:49:50 by mcuenca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,9 @@ void	render_column(t_game *game, t_draw_line *draw, int i)
 void	render_column_calc(t_draw_line *dw, int *tx_x, double *sp, double *tx_p)
 {
 	*tx_x = (int)(dw->wall_x * (double)dw->tex->width);
-	if (dw->side == 0 && dw->dir_x > 0)
+	if (dw->side == 0 && dw->dir_x < 0)
 		*tx_x = dw->tex->width - *tx_x - 1;
-	if (dw->side == 1 && dw->dir_y < 0)
+	if (dw->side == 1 && dw->dir_y > 0)
 		*tx_x = dw->tex->width - *tx_x - 1;
 	*sp = 1.0 * dw->tex->height / dw->height;
 	*tx_p = (dw->start_y - HEIGHT / 2 + dw->height / 2) * (*sp);

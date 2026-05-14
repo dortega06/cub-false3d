@@ -6,7 +6,7 @@
 /*   By: mcuenca- <mcuenca-@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/07 13:37:16 by mcuenca-          #+#    #+#             */
-/*   Updated: 2026/05/09 18:38:55 by mcuenca-         ###   ########.fr       */
+/*   Updated: 2026/05/13 20:07:53 by mcuenca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,14 @@ int	get_rgb(int r, int g, int b)
 t_bool	check_int_errors(char nomen, char *s, int *color, char **ptr)
 {
 	if (!ft_isdigit(**ptr))
-		return (ft_printf("%c %s color \'%c\' is misplaced.\n",
+		return (ft_printf("Error: %c %s color \'%c\' is misplaced.\n",
 				nomen, s, **ptr), FALSE);
 	else
 	{
 		if (**ptr == '0')
 		{
 			if ((*ptr)[1] && ft_isdigit((*ptr)[1]))
-				return (ft_printf("%c %s "
+				return (ft_printf("Error: %c %s "
 						"color invalid number format.\n", nomen, s), FALSE);
 		}
 	}
@@ -37,10 +37,11 @@ t_bool	check_int_errors(char nomen, char *s, int *color, char **ptr)
 	while (*ptr && ft_isdigit(**ptr))
 		(*ptr)++;
 	if (**ptr != ',' && **ptr != '\0')
-		return (ft_printf("%c %s color is not properly set.\n", nomen, s),
-			FALSE);
+		return (ft_printf("Error: %c %s "
+				"color is not properly set.\n", nomen, s), FALSE);
 	else if (*color < 0 || *color > 255)
-		return (ft_printf("%c %s color is not in range.\n", nomen, s), FALSE);
+		return (ft_printf("Error: %c %s "
+				"color is not in range.\n", nomen, s), FALSE);
 	return (TRUE);
 }
 
@@ -58,18 +59,19 @@ t_bool	is_int_in_range(char nomen, char *buf, t_color *color)
 	if (!check_int_errors(nomen, "blue", &color->b, &tmp))
 		return (FALSE);
 	if (tmp && *tmp != '\0')
-		return (ft_printf("Color must be the \'%c n,n,n\'.\n", nomen), FALSE);
+		return (ft_printf("Error: color must be the \'%c n,n,n\'.\n", nomen),
+			FALSE);
 	return (TRUE);
 }
 
-static t_bool	check_nomen(char **color_lines)
+/*static t_bool	check_nomen(char **color_lines)
 {
 	if (ft_strncmp(color_lines[F], "F", 1) != 0)
 		return (ft_printf("F nomenclature is wrong.\n"), FALSE);
 	else if (ft_strncmp(color_lines[C], "C", 1) != 0)
 		return (ft_printf("C nomenclature is wrong.\n"), FALSE);
 	return (TRUE);
-}
+}*/
 
 t_bool	colors_are_valid(t_cube *root_nd, int *j)
 {
@@ -79,7 +81,7 @@ t_bool	colors_are_valid(t_cube *root_nd, int *j)
 	tmp = extract_lines(root_nd, 2, j);
 	if (!tmp)
 		return (ft_free_2ptr(tmp), FALSE);
-	if (!check_nomen(tmp))
+	if (!check_color_nomen(tmp))
 		return (ft_free_2ptr(tmp), FALSE);
 	else if (!is_int_in_range('F', tmp[F], &color[F])
 		|| !is_int_in_range('C', tmp[C], &color[C]))

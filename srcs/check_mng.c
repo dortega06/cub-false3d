@@ -6,7 +6,7 @@
 /*   By: mcuenca- <mcuenca-@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/28 19:31:41 by mcuenca-          #+#    #+#             */
-/*   Updated: 2026/04/15 15:39:16 by mcuenca-         ###   ########.fr       */
+/*   Updated: 2026/05/13 18:16:13 by mcuenca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ t_bool	check_mng(char *file_name, char *flag, t_cube *root_nd)
 	is_valid = FALSE;
 	file_len = file_name_len(file_name);
 	if (file_len < 5)
-		return (ft_printf("Impossible len.\n"), FALSE);
+		return (ft_printf("Error: Impossible len.\n"), FALSE);
 	else
 	{
 		if (ft_strcmp(flag, "cub") == 0)

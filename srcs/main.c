@@ -6,7 +6,7 @@
 /*   By: mcuenca- <mcuenca-@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/23 17:16:05 by mcuenca-          #+#    #+#             */
-/*   Updated: 2026/05/09 19:47:08 by mcuenca-         ###   ########.fr       */
+/*   Updated: 2026/05/13 18:21:15 by mcuenca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 
 int	cube_instructions(void)
 {
+	ft_printf("Error: There is not map.\n");
+	ft_printf("./cub3D <map>\n");
 	ft_printf("To run the program correctly, you must provide an argument.\n"
 		"It must have a .cub extension.\n"
 		"Lines 0 to 3 must define textures with a valid path and extension.\n");
@@ -47,6 +49,7 @@ int	main(int argc, char **argv)
 		return (cube_instructions());
 	root_nd.fd = -1;
 	root_nd.file = NULL;
+	root_nd.textu_path = NULL;
 	if (!parse_cub(argv[1], &root_nd))
 		return (clean_data_cube(&root_nd), 1);
 	execute(&root_nd);

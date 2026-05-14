@@ -6,7 +6,7 @@
 /*   By: mcuenca- <mcuenca-@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 15:04:24 by mcuenca-          #+#    #+#             */
-/*   Updated: 2026/04/17 15:08:04 by mcuenca-         ###   ########.fr       */
+/*   Updated: 2026/05/13 18:19:45 by mcuenca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	**extract_lines(t_cube *root_nd, int len, int *j)
 		while (root_nd->file[*j] && ft_isbreakline(root_nd->file[*j]))
 			(*j)++;
 		if (!root_nd->file[*j])
-			return (ft_printf("There are not colors or textures.\n"),
+			return (ft_printf("Error: There are not colors or textures.\n"),
 				ft_free_2ptr(tmp), NULL);
 		tmp[k] = ft_normalize_dy_str(root_nd->file[*j]);
 		if (!tmp[k])

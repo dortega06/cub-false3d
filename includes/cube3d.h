@@ -6,7 +6,7 @@
 /*   By: mcuenca- <mcuenca-@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/28 14:22:28 by mcuenca-          #+#    #+#             */
-/*   Updated: 2026/05/13 16:31:38 by mcuenca-         ###   ########.fr       */
+/*   Updated: 2026/05/13 19:34:51 by mcuenca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -224,6 +224,8 @@ char	**split_gnl_cube(char const *s, char c);
 t_bool	check_cub(char *file, t_cube *root_nd);
 t_bool	check_xpm(char *file, t_cube *root_nd);
 t_bool	content_is_valid(t_cube *root_nd);
+t_bool	check_textu_nomen(char **texture_lines);
+t_bool	check_color_nomen(char **texture_lines);
 t_bool	textures_are_valid(t_cube *root_nd, int *j);
 char	**extract_lines(t_cube *root_nd, int len, int *j);
 t_bool	colors_are_valid(t_cube *root_nd, int *j);
