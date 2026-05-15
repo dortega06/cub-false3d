@@ -18,14 +18,14 @@ Inspirated by `Wolfenstein 3D`, `Doom`, etc. "This project's objectives...: rigo
 
 When executing the program with a proper map, it will open a window that shows a pseudo-3D calculated environment based on the provided data.
 
-## Instuctions
+## Instructions
 
 1. `git clone <repository_link> <directory_name>` or `git clone git@github.com:dortega06/cub-false3d.git`
 2. Go to the cloned repository directory.
 3. `make`
 4. `./<program_name>`
 
-## Resourses
+## Resources
 
 - Peers:
     - diespino
@@ -36,13 +36,13 @@ When executing the program with a proper map, it will open a window that shows a
     - meghribe
     - rdellaza
 - Websites  
-https://htmlcolorcodes.com/
-https://github.com/petandk/42cursus/tree/main/4%20cuarto_circulo/cub3d
+https://htmlcolorcodes.com/  
+https://github.com/petandk/42cursus/tree/main/4%20cuarto_circulo/cub3d  
 
 - Videos  
-https://www.youtube.com/watch?v=Zwh-QNlsurI
-https://www.youtube.com/watch?v=5E7IWTF8qMk
-https://www.youtube.com/watch?v=ldqAmkdthHY
+https://www.youtube.com/watch?v=Zwh-QNlsurI  
+https://www.youtube.com/watch?v=5E7IWTF8qMk  
+https://www.youtube.com/watch?v=ldqAmkdthHY  
 
 - IA usage  
 How to properly check that a .xpm file is truly an .xpm file and not another type of file.  

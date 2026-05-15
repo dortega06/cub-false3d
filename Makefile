@@ -6,7 +6,7 @@
 #    By: mcuenca- <mcuenca-@student.42barcelon      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/03/23 16:46:01 by mcuenca-          #+#    #+#              #
-#    Updated: 2026/05/14 14:05:27 by mcuenca-         ###   ########.fr        #
+#    Updated: 2026/05/15 12:47:07 by mcuenca-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,18 +55,16 @@ OBJS= $(SRCS:$(SRCS_DIR)/%.c=$(OBJS_DIR)/%.o)
 
 NAME= cub3D
 
-all: libs $(NAME)
+all: $(NAME) 
 
-libs: $(MLX) $(LIBFT)
+$(NAME): $(OBJS) $(HEAD) $(LIBFT) $(MLX)
+	$(CC) $(CFLAGS) $(INCS) $(OBJS) $(LIBS) -o $(NAME)
 
 $(LIBFT): $(LIBFT_DIR)/Makefile $(LIBFT_DIR)/libft.h $(LIBFT_DIR)/libftprintf.h $(LIBFT_DIR)/gnl.h
 	$(MAKE) -sC $(LIBFT_DIR)
 
 $(MLX):
 	$(MAKE) -C $(MLX_DIR)
-
-$(NAME): $(OBJS) $(HEAD)
-	$(CC) $(CFLAGS) $(INCS) $(OBJS) $(LIBS) -o $(NAME)
 
 $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c $(HEAD) Makefile
 	@mkdir -p $(OBJS_DIR)/
