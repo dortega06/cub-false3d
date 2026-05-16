@@ -4,6 +4,9 @@ en.subject.cube3d.pdf
 *.obj
 objs/
 cub3D
-test/
+test/map/petandk_maps
+test/map/petandk_wrongmaps
+test/file_err/000.cub
+test/file_err/dir000.cub
 *.a
 libft/libft.a

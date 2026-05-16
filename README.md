@@ -20,10 +20,14 @@ When executing the program with a proper map, it will open a window that shows a
 
 ## Instructions
 
-1. `git clone <repository_link> <directory_name>` or `git clone git@github.com:dortega06/cub-false3d.git`
+1. Copy the repository link and execute the following command in the terminal:
+   `git clone <repository_link> (optional)<directory_name>`
 2. Go to the cloned repository directory.
-3. `make`
-4. `./<program_name>`
+3. Download `minilibx-linux.tgz` from the `cub3D` project page on the 42 intranet.
+4. Extract `minilibx-linux.tgz`.
+5. Move or copy the extracted `minilibx-linux` directory into the `<directory_name>` root directory.
+6. Run: `make`
+7. Run: `./<program_name>` to display the program instructions.
 
 ## Resources
 
